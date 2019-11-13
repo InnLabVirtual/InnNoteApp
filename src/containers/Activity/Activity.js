@@ -6,7 +6,8 @@ import {
   ScrollView,
   View,
   Text,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Image
   } from 'react-native'
 
 import Header from '../../components/common/Header/Header'
@@ -73,7 +74,6 @@ const Activity = (props) => {
   return (
     <ScrollView>
  <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
-      <Header isBack={true} isActivity={false} copy="Volver"/>
       <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
         <View style= {[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
           <View>
@@ -100,6 +100,9 @@ const Activity = (props) => {
               </View>
               <View style={[global.mainIcon, styles.mainIconActive]}>
                 <View style={global.mainIconContent}>
+                <Image 
+                    source={require('./../../assets/icons/activity/empathy_map/empathy_map.png')}
+                  /> 
                 </View>
               </View>
             </View>
@@ -109,7 +112,11 @@ const Activity = (props) => {
               {activities[0].title}
             </Text>
             <View style= {{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-              <View style={[global.cardIcon, global.cardTxt, { backgroundColor: 'white' }]}></View>
+              <View style={[global.cardIcon, global.cardTxt, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Image 
+                    source={require('./../../assets/icons/activity/time.png')}
+                  />  
+              </View>
               <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
                 {activities[0].timePerClass} min / sesión
               </Text>
@@ -166,7 +173,10 @@ const Activity = (props) => {
               <TouchableNativeFeedback onPress={() => props.navigation.navigate('RegisText')}>
                 <View>
                   <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent]}>
+                    <View style={[global.mainIconContent, {justifyContent: 'center', alignItems: 'center'}]}>
+                      <Image 
+                        source={require('./../../assets/icons/registerinfo/text.png')}
+                      /> 
                     </View>
                   </View>
                   <Text style={[
@@ -183,7 +193,10 @@ const Activity = (props) => {
               <TouchableNativeFeedback>
                 <View>
                   <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent]}>
+                    <View style={[global.mainIconContent, , {justifyContent: 'center', alignItems: 'center'}]}>
+                    <Image 
+                        source={require('./../../assets/icons/registerinfo/voice.png')}
+                      />
                     </View>
                   </View>
                   <Text style={[
@@ -200,7 +213,10 @@ const Activity = (props) => {
               <TouchableNativeFeedback>
                 <View>
                   <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent]}>
+                    <View style={[global.mainIconContent, , {justifyContent: 'center', alignItems: 'center'}]}>
+                      <Image 
+                        source={require('./../../assets/icons/registerinfo/image.png')}
+                      />
                     </View>
                   </View>
                   <Text style={[
@@ -225,5 +241,9 @@ const Activity = (props) => {
     </ScrollView>
    )
 }
+
+
+
+
 
 export default Activity

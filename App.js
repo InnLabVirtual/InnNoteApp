@@ -6,31 +6,15 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableNativeFeedback,
+  Image
 } from 'react-native'
-
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
 
 import SplashScreen from 'react-native-splash-screen';
 
-import Project from './src/containers/Project/Project'
-import Activity from './src/containers/Activity/Activity'
-import RegisText from './src/containers/RegisInfo/RegisText/RegisText'
-
+import { AppContainer } from './src/navigators/mainNavigator';
 /* eslint-enable */
 
-const AppNavigator = createStackNavigator (
-    {
-        Project: { screen: Project },
-	Activity: { screen: Activity },
-	RegisText: { screen: RegisText }
-    },
-    {
-        initialRouteName: 'Project'
-    }
-);
-
-const AppContainer = createAppContainer(AppNavigator);
 
 const App = () => {
 

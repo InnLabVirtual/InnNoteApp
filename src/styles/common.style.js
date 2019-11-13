@@ -63,7 +63,6 @@ export default StyleSheet.create({
     marginTop: 0,
     marginLeft: theme.GENERIC_MARGIN,
     marginRight: theme.GENERIC_MARGIN,
-    marginBottom: theme.GENERIC_MARGIN * 2,
     flex: 1
   },
   // Those are card stylings

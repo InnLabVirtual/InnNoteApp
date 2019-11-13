@@ -15,12 +15,12 @@ import Header from '../../../components/common/Header/Header'
 import global from './../../../styles/common.style'
 import theme from './../../../styles/theme.style'
 import styles from './styles'
+import RegisterHeader from '../../../components/common/RegisterHeader/RegisterHeader'
 
 const RegisText = () => {
   return (
-      <ScrollView>
+    <ScrollView>
     <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
-      <Header isBack={true} isActivity={true} copy="Mapa de Empatía" />
       <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
         <View>
           <View style={styles.confirmContainer}>
@@ -35,8 +35,9 @@ const RegisText = () => {
                 <TextInput style={styles.paperText} 
                 placeholder="Escribe algo"
                 numberOfLines={5}
-                multiline={true}>
-                  Este es un post-it
+                multiline={true}
+                placeholder={'Esto es un post-it'}>
+                  
                 </TextInput>
               </View>
             </View>
@@ -65,4 +66,9 @@ const RegisText = () => {
   )
 }
 
+RegisText.navigationOptions = {
+  headerTitle: () => <RegisterHeader />
+}
+
 export default RegisText
+

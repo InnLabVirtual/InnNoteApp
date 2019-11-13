@@ -19,9 +19,7 @@ export default StyleSheet.create({
     fontSize: theme.FONT_SIZE_EXTRALARGE,
     color: '#333333',
     textAlign: 'center',
-    backgroundColor: 'red',
     flex: 1,
-    width: '100%'
   },
   confirmContainer: {
     justifyContent: 'flex-end',
@@ -33,7 +31,7 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
     marginRight: theme.GENERIC_MARGIN + 10,
-    marginBottom: -20,
+    marginBottom: -35,
     backgroundColor: theme.PRIMARY_COLOR,
     elevation: 5,
     borderRadius: 50

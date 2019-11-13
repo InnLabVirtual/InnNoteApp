@@ -9,7 +9,6 @@ import {
   TouchableNativeFeedback
   } from 'react-native'
 
-import Header from '../../components/common/Header/Header'
 import styles from './styles'
 import global from '../../styles/common.style'
 import theme from '../../styles/theme.style'
@@ -26,8 +25,7 @@ const Project = (props) => {
   return (
     <ScrollView>
       <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
-        <Header navigation={props.navigation} isBack={false} isActivity={false} copy="Nombre del proyecto"/>
-        <ScrollView style={[styles.bodyContainer]}>
+        <ScrollView style={[styles.bodyContainer, { marginBottom: 0 }]}>
           <Reminder />
           <View style={[global.card, { backgroundColor: 'white' }]}>
             <Text style={[global.txt, global.title, global.cardTxt]}>
@@ -78,17 +76,18 @@ const Project = (props) => {
               <DesignTGraph currentStepID={'1'} isLittle={false} />
             </View>
           </View>
-          <View>
+          
+        </ScrollView>
+        <View style={{ alignItems: 'center', marginTop: theme.GENERIC_MARGIN }}>
             <Activity navigation={props.navigation} name={'Mapa de empatía'} time={30} />
           </View>
-        </ScrollView>
       </View>
     </ScrollView>
   )
 }
 
 Project.navigationOptions = {
-  title:'Nombre de proyecto'
+  title: 'Nombre de proyecto'
 }
 
 export default Project
