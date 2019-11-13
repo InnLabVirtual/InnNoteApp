@@ -2,7 +2,18 @@ package com.innnoteapp;
 
 import com.facebook.react.ReactActivity;
 
+// Those are libraries for SplashScreen Library
+import org.devio.rn.splashscreen.SplashScreen;
+import android.os.Bundle;
+
 public class MainActivity extends ReactActivity {
+
+  // React SplashScreen
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+      SplashScreen.show(this);
+      super.onCreate(savedInstanceState);
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
