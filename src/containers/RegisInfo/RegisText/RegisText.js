@@ -19,9 +19,20 @@ import theme from './../../../styles/theme.style'
 import styles from './styles'
 import RegisterHeader from '../../../components/common/RegisterHeader/RegisterHeader'
 
+
+
 const RegisText = () => {
   const [currentColor, setCurrentColor] = useState('yellow');
+  const [colorid, setColorid] = useState('0');
   const [postItText, setPostItText] = useState('');
+
+  async function onCreatePostIt (text, color) {
+    database().ref().child('posts').push({
+      text: text,
+      autor: 'autor',
+      color: color
+    });  
+  }
 
   return (
     <ScrollView>
@@ -30,8 +41,7 @@ const RegisText = () => {
           <View>
             <View style={styles.confirmContainer}>
               <TouchableNativeFeedback
-                onPress={() => alert('Your message is in the VR!')}
-                
+                onPress={() => onCreatePostIt(postItText, colorid)}
               >
                 <View style={styles.confirm}>
                   <Image
@@ -59,23 +69,23 @@ const RegisText = () => {
           <Text style={[global.txt, global.tagTxt, { marginTop: theme.GENERIC_MARGIN, color: theme.GRAY_COLOR }]}>Cambia el color del post-it</Text>
           <View style={[global.rowDistributed, { marginTop: theme.GENERIC_MARGIN, marginBottom: theme.GENERIC_MARGIN }]}>
             <TouchableWithoutFeedback
-            onPress={ () => setCurrentColor('yellow') } >
+            onPress={ () => {setCurrentColor('yellow'), setColorid('0')} } >
               <View style={[styles.selector, currentColor=== 'yellow' && styles.selectorActiveYellow, { borderColor: theme.YELLOW_COLOR }]}></View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-            onPress={ () => setCurrentColor('red') }>
+            onPress={ () => {setCurrentColor('red'), setColorid('1')} }>
               <View style={[styles.selector, currentColor=== 'red' && styles.selectorActiveRed, { borderColor: theme.RED_COLOR }]}></View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-            onPress={ () => setCurrentColor('violet') }>
+            onPress={ () => {setCurrentColor('violet'), setColorid('2')} }>
               <View style={[styles.selector, currentColor=== 'violet' && styles.selectorActiveViolet, { borderColor: theme.VIOLET_COLOR }]}></View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-            onPress={ () => setCurrentColor('green') }>
+            onPress={ () => {setCurrentColor('green'), setColorid('3')} }>
               <View style={[styles.selector, currentColor=== 'green' && styles.selectorActiveGreen, { borderColor: theme.GREEN_COLOR }]}></View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-            onPress={ () => setCurrentColor('blue') }>
+            onPress={ () => {setCurrentColor('blue'), setColorid('4')} }>
               <View style={[styles.selector, currentColor=== 'blue' && styles.selectorActiveBlue, { borderColor: theme.BLUE_COLOR }]}></View>
             </TouchableWithoutFeedback>
           </View>
