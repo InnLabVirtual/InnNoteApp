@@ -47,5 +47,20 @@ export default StyleSheet.create({
   selector: {
     ...global.selector,
     opacity: 1
+  },
+  selectorActiveYellow: {
+    backgroundColor: theme.YELLOW_COLOR,
+  },
+  selectorActiveRed: {
+    backgroundColor: theme.RED_COLOR,
+  },
+  selectorActiveViolet: {
+    backgroundColor: theme.VIOLET_COLOR,
+  },
+  selectorActiveGreen: {
+    backgroundColor: theme.GREEN_COLOR,
+  },
+  selectorActiveBlue: {
+    backgroundColor: theme.BLUE_COLOR,
   }
 })

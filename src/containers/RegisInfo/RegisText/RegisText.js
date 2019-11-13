@@ -1,5 +1,5 @@
 ﻿/* eslint-disable */
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   StyleSheet,
@@ -20,6 +20,9 @@ import styles from './styles'
 import RegisterHeader from '../../../components/common/RegisterHeader/RegisterHeader'
 
 const RegisText = () => {
+  const [currentColor, setCurrentColor] = useState('yellow');
+  const [postItText, setPostItText] = useState('');
+
   return (
     <ScrollView>
       <View style={{ backgroundColor: theme.BACKGROUND_COLOR,  paddingBottom: 110 }}>
@@ -28,7 +31,7 @@ const RegisText = () => {
             <View style={styles.confirmContainer}>
               <TouchableNativeFeedback
                 onPress={() => alert('Your message is in the VR!')}
-                style={{ borderRadius: 40 }}
+                
               >
                 <View style={styles.confirm}>
                   <Image
@@ -44,7 +47,9 @@ const RegisText = () => {
                     placeholder="Escribe algo"
                     numberOfLines={5}
                     multiline={true}
-                    placeholder={'Esto es un post-it'}>
+                    placeholder={'Esto es un post-it'}
+                    onChange={text => setPostItText(text)}
+                    value={postItText}>
 
                   </TextInput>
                 </View>
@@ -53,20 +58,25 @@ const RegisText = () => {
           </View>
           <Text style={[global.txt, global.tagTxt, { marginTop: theme.GENERIC_MARGIN, color: theme.GRAY_COLOR }]}>Cambia el color del post-it</Text>
           <View style={[global.rowDistributed, { marginTop: theme.GENERIC_MARGIN, marginBottom: theme.GENERIC_MARGIN }]}>
-            <TouchableWithoutFeedback>
-              <View style={[styles.selector, { borderColor: theme.YELLOW_COLOR }]}></View>
+            <TouchableWithoutFeedback
+            onPress={ () => setCurrentColor('yellow') } >
+              <View style={[styles.selector, currentColor=== 'yellow' && styles.selectorActiveYellow, { borderColor: theme.YELLOW_COLOR }]}></View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
-              <View style={[styles.selector, { borderColor: theme.RED_COLOR }]}></View>
+            <TouchableWithoutFeedback
+            onPress={ () => setCurrentColor('red') }>
+              <View style={[styles.selector, currentColor=== 'red' && styles.selectorActiveRed, { borderColor: theme.RED_COLOR }]}></View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
-              <View style={[styles.selector, { borderColor: theme.VIOLET_COLOR }]}></View>
+            <TouchableWithoutFeedback
+            onPress={ () => setCurrentColor('violet') }>
+              <View style={[styles.selector, currentColor=== 'violet' && styles.selectorActiveViolet, { borderColor: theme.VIOLET_COLOR }]}></View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
-              <View style={[styles.selector, { borderColor: theme.GREEN_COLOR }]}></View>
+            <TouchableWithoutFeedback
+            onPress={ () => setCurrentColor('green') }>
+              <View style={[styles.selector, currentColor=== 'green' && styles.selectorActiveGreen, { borderColor: theme.GREEN_COLOR }]}></View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
-              <View style={[styles.selector, { borderColor: theme.BLUE_COLOR }]}></View>
+            <TouchableWithoutFeedback
+            onPress={ () => setCurrentColor('blue') }>
+              <View style={[styles.selector, currentColor=== 'blue' && styles.selectorActiveBlue, { borderColor: theme.BLUE_COLOR }]}></View>
             </TouchableWithoutFeedback>
           </View>
         </View>
