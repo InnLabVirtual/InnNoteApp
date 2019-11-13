@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "314530013710",
+    "firebase_url": "https://innlabvirtual-684a1.firebaseio.com",
+    "project_id": "innlabvirtual-684a1",
+    "storage_bucket": "innlabvirtual-684a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314530013710:android:db71a8efe5dddfd607125f",
+        "android_client_info": {
+          "package_name": "com.innnoteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314530013710-nojvv74jmcta6uut32avbfm1el6akblo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.innnoteapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "314530013710-a1jsj4kucg31hnvi7067evu72ij6toi1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNSQltkUmXnjA-k3hyML-YcF-h2YD0Nlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314530013710-a1jsj4kucg31hnvi7067evu72ij6toi1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
