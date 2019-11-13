@@ -71,7 +71,29 @@ const RegisText = () => {
 }
 
 RegisText.navigationOptions = {
-  headerTitle: () => <RegisterHeader name={'Mapa de empatía'} />
+  headerTitle: () => <RegisterHeader name={'Mapa de empatía'} /> ,
+  headerRight: () => (
+    <View style={{ flexDirection: 'row'}}>
+      <TouchableNativeFeedback
+        onPress={() => alert('This is a but!')}
+      >
+        <View style={[global.icon, { marginRight: 10 }]}>
+        <Image 
+          source={require('./../../../assets/icons/header/more.png')}
+        />  
+        </View>  
+      </TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => alert('This is a but!')}
+      >
+        <View style={[global.icon, { marginRight: 10 }]}>
+        <Image 
+          source={require('./../../../assets/icons/header/folder.png')}
+        />  
+        </View>  
+      </TouchableNativeFeedback>
+    </View>
+  ),
 }
 
 export default RegisText
