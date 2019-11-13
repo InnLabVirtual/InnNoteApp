@@ -1,4 +1,4 @@
-/* eslint-disable */
+﻿/* eslint-disable */
 import React from 'react'
 
 import {
@@ -18,6 +18,7 @@ import styles from './styles'
 
 const RegisText = () => {
   return (
+      <ScrollView>
     <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
       <Header isBack={true} isActivity={true} copy="Mapa de Empatía" />
       <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
@@ -60,6 +61,7 @@ const RegisText = () => {
         </View>
       </ScrollView>
     </View>
+      </ScrollView>
   )
 }
 

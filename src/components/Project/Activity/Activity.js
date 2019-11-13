@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+﻿/* eslint-disable */ 
 import React from 'react'
 
 import {
@@ -15,6 +15,8 @@ import DesignTGraph from '../../common/DesignTGraph/DesignTGraph'
 
 const Activity = (props) => {
   return (
+    <TouchableNativeFeedback onPress={() => props.navigation.navigate('Activity')}>
+    
     <View style= {[global.card, { elevation: 12, width: 260, height: 220, justifyContent: 'space-between' }]}>
       <View>
         <View style={{}}>
@@ -39,7 +41,8 @@ const Activity = (props) => {
         </View>
       </View>
     </View>
-  )
+</TouchableNativeFeedback> 
+ )
 }
 
 export default Activity

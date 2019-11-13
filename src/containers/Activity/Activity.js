@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+﻿/* eslint-disable */ 
 import React from 'react'
 
 import {
@@ -69,9 +69,10 @@ const activities = [
 ]
 
 
-const Activity = () => {
+const Activity = (props) => {
   return (
-    <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
+    <ScrollView>
+ <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
       <Header isBack={true} isActivity={false} copy="Volver"/>
       <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
         <View style= {[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
@@ -162,7 +163,7 @@ const Activity = () => {
               </TouchableNativeFeedback>
             </View>
             <View style= {[global.rowDistributed, { marginTop: 20 }]}>
-              <TouchableNativeFeedback>
+              <TouchableNativeFeedback onPress={() => props.navigation.navigate('RegisText')}>
                 <View>
                   <View style={[global.mainIcon]}>
                     <View style={[global.mainIconContent]}>
@@ -220,7 +221,9 @@ const Activity = () => {
         
       </ScrollView>
     </View>
-  )
+   
+    </ScrollView>
+   )
 }
 
 export default Activity
