@@ -12,6 +12,8 @@ import {
   TextInput
 } from 'react-native'
 
+import database from '@react-native-firebase/database'
+
 import global from './../../../styles/common.style'
 import theme from './../../../styles/theme.style'
 import styles from './styles'
@@ -24,7 +26,10 @@ const RegisText = () => {
         <View style={[global.bodyContainer, { flex: 1 }]}>
           <View>
             <View style={styles.confirmContainer}>
-              <TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                onPress={() => alert('Your message is in the VR!')}
+                style={{ borderRadius: 40 }}
+              >
                 <View style={styles.confirm}>
                   <Image
                     source={require('./../../../assets/icons/activity/confirm.png')} 
@@ -76,7 +81,8 @@ RegisText.navigationOptions = {
     <View style={{ flexDirection: 'row'}}>
       <TouchableNativeFeedback
         onPress={() => alert('This is a but!')}
-      >
+        
+        >
         <View style={[global.icon, { marginRight: 10 }]}>
         <Image 
           source={require('./../../../assets/icons/header/more.png')}

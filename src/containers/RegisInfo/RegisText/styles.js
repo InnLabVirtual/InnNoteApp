@@ -29,7 +29,7 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
     marginRight: theme.GENERIC_MARGIN,
-    marginBottom: -35,
+    marginBottom: -15,
     backgroundColor: theme.PRIMARY_COLOR,
     elevation: 5,
     borderRadius: 50,
