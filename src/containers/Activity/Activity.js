@@ -10,7 +10,6 @@ import {
   Image
   } from 'react-native'
 
-import Header from '../../components/common/Header/Header'
 import styles from './styles'
 import global from '../../styles/common.style'
 import theme from '../../styles/theme.style'

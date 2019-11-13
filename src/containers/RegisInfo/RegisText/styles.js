@@ -8,8 +8,6 @@ export default StyleSheet.create({
     backgroundColor: '#FFFAEC',
     padding: 20,
     height: 300,
-    marginRight: theme.GENERIC_MARGIN,
-    marginLeft: theme.GENERIC_MARGIN,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
@@ -24,17 +22,19 @@ export default StyleSheet.create({
   confirmContainer: {
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    zIndex: 1
-
+    zIndex: 1,
+    marginTop: theme.GENERIC_MARGIN
   },
   confirm: {
     width: 60,
     height: 60,
-    marginRight: theme.GENERIC_MARGIN + 10,
+    marginRight: theme.GENERIC_MARGIN,
     marginBottom: -35,
     backgroundColor: theme.PRIMARY_COLOR,
     elevation: 5,
-    borderRadius: 50
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   colorContainer: {
     marginTop: -50,
@@ -43,5 +43,9 @@ export default StyleSheet.create({
   colorItem: {
     marginTop: -50,
     marginLeft: 15
+  },
+  selector: {
+    ...global.selector,
+    opacity: 1
   }
 })

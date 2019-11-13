@@ -1,10 +1,11 @@
-/* eslint-disable */ 
+/* eslint-disable */
 import React from 'react'
 
 import {
-  View,
-  Text,
-  TouchableNativeFeedback
+    View,
+    Text,
+    TouchableNativeFeedback,
+    Image
 } from 'react-native'
 import global from '../../../styles/common.style'
 import theme from '../../../styles/theme.style'
@@ -13,32 +14,35 @@ import styles from './styles'
 /* eslint-enable */
 
 const RegisterHeader = (props) => {
-  return (
+    return (
+        <View>
 
-    <View style={[styles.headerContainer, props.isBack && styles.headerContainerBack, global.rowDistributed, { alignItems: 'center' }]}>
-      <View style={{ flexDirection: 'row', flex: 1 }}>
-            <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={[styles.activityIcon, { marginLeft: 4, marginRight: 4 }]}>
-              </View>
-              <View style= {{ flexDirection: 'column' }}>
-                <Text style={[global.txt, global.highTxt, global.title]}>
-                  {props.name}
-                </Text>
-                <Text style={[global.txt, global.tagTxt, { color: theme.GRAY_COLOR }]}>
-                  Registro de texto
-                </Text>
-              </View>
+            <View style={[styles.headerContainer, { alignItems: 'center' }]}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={[styles.activityIcon]}>
+                            <Image
+                                source={require('./../../../assets/icons/activity/empathy_map/empathy_map.png')}
+                            />
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={[global.txt, global.highTxt, global.title, { marginLeft: 0, paddingLeft: 0 }]}>
+                            {props.name}
+                        </Text>
+                        <Text style={[global.txt, global.tagTxt, { color: theme.GRAY_COLOR, paddingLeft: 5 }]}>
+                            Registro de texto
+                        </Text>
+                    </View>
+                </View>
+
+
+
             </View>
-          )
-        }
 
-      </View>
-      <TouchableNativeFeedback>
-        <View style={[global.icon, { backgroundColor: 'red' }]}>
         </View>
-      </TouchableNativeFeedback>
-    </View>
-  )
+
+    )
 }
 
 export default RegisterHeader
