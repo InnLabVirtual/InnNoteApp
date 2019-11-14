@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 
 import database from '@react-native-firebase/database'
+import functions from '@react-native-firebase/functions';
 
 import global from './../../../styles/common.style'
 import theme from './../../../styles/theme.style'
@@ -27,7 +28,7 @@ const RegisText = () => {
   const [postItText, setPostItText] = useState('');
 
   async function onCreatePostIt (text, color) {
-    database().ref().child('posts').push({
+    await database().ref().child('posts').push({
       text: text,
       autor: 'autor',
       color: color
@@ -41,7 +42,7 @@ const RegisText = () => {
           <View>
             <View style={styles.confirmContainer}>
               <TouchableNativeFeedback
-                onPress={() => onCreatePostIt(postItText, colorid)}
+                onPress={() => {onCreatePostIt(postItText, colorid), setPostItText('')}}
               >
                 <View style={styles.confirm}>
                   <Image
@@ -58,7 +59,7 @@ const RegisText = () => {
                     numberOfLines={5}
                     multiline={true}
                     placeholder={'Esto es un post-it'}
-                    onChange={text => setPostItText(text)}
+                    onChange={text => {setPostItText(text)}}
                     value={postItText}>
 
                   </TextInput>
