@@ -20,20 +20,35 @@ import theme from './../../../styles/theme.style'
 import styles from './styles'
 import RegisterHeader from '../../../components/common/RegisterHeader/RegisterHeader'
 
+import { connect } from 'react-redux';
+import { watchUserData } from '../../../redux/actions/users'
+import { uploadTextRegister } from '../../../redux/actions/registers'
+
+const mapStateToProps = (state) => {
+  return { 
+    userData: state.userData
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    watchUserData: () => dispatch(watchUserData()),
+    uploadTextRegister: (postit) => dispatch(uploadTextRegister(postit)) 
+  }
+}
 
 
-const RegisText = () => {
+const RegisText = (props) => {
   const [currentColor, setCurrentColor] = useState('yellow');
   const [colorid, setColorid] = useState('0');
   const [postItText, setPostItText] = useState('');
 
-  async function onCreatePostIt (text, color) {
-    await database().ref().child('posts').push({
-      text: text,
-      autor: 'autor',
-      color: color
-    });  
+  function onCreatePostIt (text, color) {
+    props.watchUserData();
+    console.log(text);
+    props.uploadTextRegister({text: text, color: color});
   }
+
 
   return (
     <ScrollView>
@@ -59,7 +74,7 @@ const RegisText = () => {
                     numberOfLines={5}
                     multiline={true}
                     placeholder={'Esto es un post-it'}
-                    onChange={text => {setPostItText(text)}}
+                    onChange={text => {setPostItText(text.nativeEvent.text)}}
                     value={postItText}>
 
                   </TextInput>
@@ -90,6 +105,9 @@ const RegisText = () => {
               <View style={[styles.selector, currentColor=== 'blue' && styles.selectorActiveBlue, { borderColor: theme.BLUE_COLOR }]}></View>
             </TouchableWithoutFeedback>
           </View>
+          <Text>
+            UserData: {props.userData.name}
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -123,5 +141,6 @@ RegisText.navigationOptions = {
   ),
 }
 
-export default RegisText
+
+export default connect(mapStateToProps, mapDispatchToProps) (RegisText)
 
