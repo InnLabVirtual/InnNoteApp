@@ -1,14 +1,16 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import database from '@react-native-firebase/database'
-import auth from '@react-native-firebase/auth'
-
 import userDataReducer from '../reducers/userDataReducer';
 import registerReducer from '../reducers/registerReducer';
+import commonReducer from '../reducers/commonReducer';
 
 const rootReducer = combineReducers(
-    { userData: userDataReducer, uploadText: registerReducer }
+    { 
+        userData: userDataReducer, 
+        uploadText: registerReducer, 
+        commonData: commonReducer 
+    }
 );
 
 const configureStore = () => {

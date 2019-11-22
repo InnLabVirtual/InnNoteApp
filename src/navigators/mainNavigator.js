@@ -6,6 +6,13 @@ import Loading from '../containers/Loading/Loading';
 
 import AuthNavigator from './authNavigator'
 import projectNavigator from './projectNavigator';
+import mainTabNavigator from './mainTabNavigator';
+
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
+import Projects from '../containers/Projects/Projects';
+import Settings from '../containers/Settings/Settings';
+
 
 
 const RootStack = createStackNavigator(
@@ -18,6 +25,9 @@ const RootStack = createStackNavigator(
     },
     AuthNav: {
       screen: AuthNavigator
+    },
+    MainTabNav: {
+      screen: mainTabNavigator
     }
   },
   {

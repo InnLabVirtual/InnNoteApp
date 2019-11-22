@@ -1,24 +1,65 @@
-import { USER_CREATE } from '../constants';
-import database from '@react-native-firebase/database';
+import { REGISTER_USER, REGISTER_USER_ERROR, LOGOUT, LOGIN_USER, LOGIN_USER_ERROR } from '../constants';
 
-function createUser(userData) {
+import auth from '@react-native-firebase/auth';
+
+function registerUser() {
     return {
-        type: USER_CREATE,
-        payload: userData
+        type: REGISTER_USER
+    }
+}
+function registerUserError(error) {
+    return {
+        type: REGISTER_USER_ERROR,
+        payload: error
     }
 }
 
-const watchUserData = () => {
-    return function(dispatch) {
-        database().ref("user").on("value", function(snapshot)
-      { 
-          var userData = snapshot.val();
-          var actionSetUserData = createUser(userData);
-          dispatch(actionSetUserData);
-          //alert(userData.name)
-      }, function(error) { alert(error); });
+function loginUser() {
+    return {
+        type: LOGIN_USER
     }
-};
+}
+function loginUserError(error) {
+    return {
+        type: LOGIN_USER_ERROR,
+        payload: error
+    }
+}
 
+function logout() {
+    return {
+        type: LOGOUT
+    }
+}
 
-export { createUser, watchUserData }
+const loginUserData = (userData) => {
+    return function (dispatch) {
+        auth().signInWithEmailAndPassword(userData.email, userData.password)
+        .then(() => {
+            dispatch(loginUser);
+        }).catch ((error) => {
+            dispatch(loginUserError(error))
+        }) 
+    }
+}
+
+const registerUserData = (userData) => {
+    return function (dispatch) {
+        auth().createUserWithEmailAndPassword(userData.email, userData.password)
+        .then(() => {
+            dispatch(registerUser)
+        }).catch ((error) => {
+            dispatch(registerUserError(error))
+        }) 
+    }
+}
+
+const logoutUserData = () => {
+    return function (dispatch) {
+        auth().signOut().then(() => {
+           dispatch(logout)
+        });
+    }
+} 
+
+export { registerUserData, logoutUserData, loginUserData }

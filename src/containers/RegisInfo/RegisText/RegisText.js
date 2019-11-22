@@ -12,16 +12,13 @@ import {
   TextInput
 } from 'react-native'
 
-import database from '@react-native-firebase/database'
-import functions from '@react-native-firebase/functions';
-
 import global from './../../../styles/common.style'
 import theme from './../../../styles/theme.style'
 import styles from './styles'
 import RegisterHeader from '../../../components/common/RegisterHeader/RegisterHeader'
 
 import { connect } from 'react-redux';
-import { watchUserData } from '../../../redux/actions/users'
+import { registerUserData } from '../../../redux/actions/users'
 import { uploadTextRegister } from '../../../redux/actions/registers'
 
 const mapStateToProps = (state) => {
@@ -32,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return { 
-    watchUserData: () => dispatch(watchUserData()),
+    registerUserData: (user) => dispatch(registerUserData(user)),
     uploadTextRegister: (postit) => dispatch(uploadTextRegister(postit)) 
   }
 }
@@ -44,7 +41,7 @@ const RegisText = (props) => {
   const [postItText, setPostItText] = useState('');
 
   function onCreatePostIt (text, color) {
-    props.watchUserData();
+    //props.registerUserData({email: text, password: text});
     console.log(text);
     props.uploadTextRegister({text: text, color: color});
   }

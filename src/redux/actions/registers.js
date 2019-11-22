@@ -1,10 +1,16 @@
 import database from '@react-native-firebase/database';
-import { UPLOAD_TEXT } from '../constants';
+import { UPLOAD_TEXT, UPLOAD_TEXT_ERROR } from '../constants';
 
-function uploadText(postitData) {
+function uploadText() {
     return {
-        type: UPLOAD_TEXT,
-        payload: postitData
+        type: UPLOAD_TEXT
+    }
+}
+
+function uploadTextError(error) {
+    return {
+        type: UPLOAD_TEXT_ERROR,
+        payload: error,
     }
 }
 
@@ -16,17 +22,26 @@ const uploadTextRegister = (postitData) => {
             autor: 'autor',
             color: postitData.color
         }).then(() => {
-            
-            var actionuploadText = uploadText(postitData)
-            dispatch(actionuploadText)
-    
+            dispatch(uploadText)
         }).catch( (error) => {
-            dispatch({ type: 'UPLOAD_TEXT_ERROR', error })
-    
+            dispatch(uploadTextError(error))
         });
     }
 }
 
+function setUser(user) {
+    return {
+        type: USER,
+        payload: user,
+    }
+}
+
+const setUserData = (user) => {
+    return function (dispatch) {
+        var actionSetUserData = setUser(user);
+        dispatch(actionSetUserData);
+    }
+}
 
 
-export { uploadTextRegister }
+export { uploadTextRegister, setUserData }
