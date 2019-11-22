@@ -10,7 +10,7 @@ export default createStackNavigator (
         Register: { screen: Register }
     },
     {
-        initialRouteName: 'Register',
+        initialRouteName: 'Login',
         headerMode: 'none'
     }
   );

@@ -4,12 +4,14 @@ import thunkMiddleware from 'redux-thunk';
 import userDataReducer from '../reducers/userDataReducer';
 import registerReducer from '../reducers/registerReducer';
 import commonReducer from '../reducers/commonReducer';
+import projectsReducer from '../reducers/projectsReducer';
 
 const rootReducer = combineReducers(
     { 
         userData: userDataReducer, 
         uploadText: registerReducer, 
-        commonData: commonReducer 
+        commonData: commonReducer ,
+        projectsData: projectsReducer
     }
 );
 

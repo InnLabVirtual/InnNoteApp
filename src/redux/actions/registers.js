@@ -29,19 +29,7 @@ const uploadTextRegister = (postitData) => {
     }
 }
 
-function setUser(user) {
-    return {
-        type: USER,
-        payload: user,
-    }
-}
-
-const setUserData = (user) => {
-    return function (dispatch) {
-        var actionSetUserData = setUser(user);
-        dispatch(actionSetUserData);
-    }
-}
 
 
-export { uploadTextRegister, setUserData }
+
+export { uploadTextRegister }

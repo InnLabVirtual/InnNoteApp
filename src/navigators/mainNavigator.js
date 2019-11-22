@@ -12,6 +12,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Projects from '../containers/Projects/Projects';
 import Settings from '../containers/Settings/Settings';
+import setupNavigator from './setupNavigator';
 
 
 
@@ -28,6 +29,9 @@ const RootStack = createStackNavigator(
     },
     MainTabNav: {
       screen: mainTabNavigator
+    },
+    SetupNav: {
+      screen: setupNavigator
     }
   },
   {

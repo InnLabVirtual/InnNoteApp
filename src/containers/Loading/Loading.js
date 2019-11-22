@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
   //console.log(state);
 
   return { 
-    user: state.commonData.user
+    user: state.commonData.user,
+    isSetupCompleted: state.commonData.isSetupCompleted
    }
 }
 
@@ -57,7 +58,13 @@ const Loading = (props) => {
   if (!props.user) {
     props.navigation.navigate('AuthNav'); 
   } else {
-    props.navigation.navigate('MainTabNav'); 
+    if (props.isSetupCompleted) {
+      console.log(props.isSetupCompleted)
+      props.navigation.navigate('MainTabNav'); 
+    } else {
+      console.log(props.isSetupCompleted)
+      props.navigation.navigate('SetupNav')
+    }
   }
 
   return (

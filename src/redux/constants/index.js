@@ -1,4 +1,8 @@
+export const SET_PROJECTS_DATA = "SET_PROJECTS_DATA"
+
 export const SET_USER = "SET_USER"
+export const SET_USER_DATA = "SET_USER_DATA"
+export const SET_SETUP_COMPLETED = "SET_SETUP_COMPLETED"
 
 export const LOGOUT = "LOGOUT"
 export const LOGOUT_ERROR = "LOGOUT_ERROR"
