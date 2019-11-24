@@ -1,16 +1,22 @@
 import { StyleSheet } from 'react-native'
 // eslint-disable-next-line no-unused-vars
-import theme from './../../../styles/theme.style'
-import common from './../../../styles/common.style'
+import theme from '../../../styles/theme.style'
+import common from '../../../styles/common.style'
 
 export default StyleSheet.create({
-  mainIconActive: {
-    marginTop: -50,
-    marginLeft: 15
+  loginContainer: {
+    backgroundColor: theme.PRIMARY_COLOR,    
   },
-
-  mainText: {
+  authMenuItemActive: {
     ...common.txt,
-    marginLeft: 10
-  }
+    ...common.highTxt,
+    color: theme.PRIMARY_COLOR
+  },
+  authMenuItemActiveBar: {
+    color: theme.PRIMARY_COLOR,
+    width: 45,
+    height: 4,
+    borderRadius: 5,
+    backgroundColor: theme.PRIMARY_COLOR
+  },
 })

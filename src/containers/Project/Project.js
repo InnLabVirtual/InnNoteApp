@@ -41,7 +41,7 @@ const Project = (props) => {
               {
                 width: '80%',
                 marginTop: 5,
-                color: theme.GRAY_COLOR
+                color: theme.MEDIUMGRAY_COLOR
               }]}>
               Presiona en la etapa para saber más
             </Text>

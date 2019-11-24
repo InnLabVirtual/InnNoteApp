@@ -4,13 +4,19 @@ import theme from './../../../styles/theme.style'
 import common from './../../../styles/common.style'
 
 export default StyleSheet.create({
-  mainIconActive: {
-    marginTop: -50,
-    marginLeft: 15
+  registerContainer: {
+    backgroundColor: theme.BLACK_COLOR,    
   },
-
-  mainText: {
+  authMenuItemActive: {
     ...common.txt,
-    marginLeft: 10
-  }
+    ...common.highTxt,
+    color: theme.BLACK_COLOR
+  },
+  authMenuItemActiveBar: {
+    color: theme.BLACK_COLOR,
+    width: 45,
+    height: 4,
+    borderRadius: 5,
+    backgroundColor: theme.BLACK_COLOR
+  },
 })

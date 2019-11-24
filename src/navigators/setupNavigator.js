@@ -25,6 +25,8 @@ export default createStackNavigator (
         PersonalData: { screen: PersonalData },
     },
     {
-        initialRouteName: 'PersonalData'
+        initialRouteName: 'PersonalData',
+        headerMode: 'none'
+
     }
 );

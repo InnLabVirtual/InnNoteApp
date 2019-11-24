@@ -31,18 +31,17 @@ export default StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    marginLeft: theme.GENERIC_MARGIN,
-    marginRight: theme.GENERIC_MARGIN,
     marginTop: 10,
     backgroundColor: theme.PRIMARY_COLOR,
     color: 'white',
     fontSize: theme.FONT_SIZE_MEDIUM,
-    borderRadius: theme.BUTTON_CORNER_RADIUS
-
+    borderRadius: theme.BUTTON_CORNER_RADIUS,
+    
   },
   btnText: {
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    textTransform: "uppercase"
   },
   selector: {
     width: 27,
@@ -111,5 +110,13 @@ export default StyleSheet.create({
   rowDistributed: {
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  tabNavBar: {
+    elevation: 50,
+    borderTopColor: theme.SUPERLIGHTGRAY_COLOR,
+    height: theme.TAB_BAR_HEIGHT
+  },
+  tabNavTab: {
+
   }
 })

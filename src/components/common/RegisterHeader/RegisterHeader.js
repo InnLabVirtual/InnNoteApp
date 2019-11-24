@@ -29,7 +29,7 @@ const RegisterHeader = (props) => {
             <Text style={[global.txt, global.highTxt, global.title, { marginLeft: 0, paddingLeft: 0, fontSize: theme.FONT_SIZE_MEDIUM }]}>
               {props.name}
             </Text>
-            <Text style={[global.txt, global.tagTxt, { color: theme.GRAY_COLOR, paddingLeft: 5 }]}>
+            <Text style={[global.txt, global.tagTxt, { color: theme.MEDIUMGRAY_COLOR, paddingLeft: 5 }]}>
               Registro de texto
             </Text>
           </View>

@@ -4,13 +4,15 @@ import theme from './../../../styles/theme.style'
 import common from './../../../styles/common.style'
 
 export default StyleSheet.create({
-  mainIconActive: {
-    marginTop: -50,
-    marginLeft: 15
-  },
 
-  mainText: {
-    ...common.txt,
-    marginLeft: 10
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  halfInput: {
+    minWidth: 140
+  },
+  dataInput: {
+    marginBottom: theme.LITTLE_MARGIN,
   }
 })

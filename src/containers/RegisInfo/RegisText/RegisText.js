@@ -79,7 +79,7 @@ const RegisText = (props) => {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <Text style={[global.txt, global.tagTxt, { marginTop: theme.GENERIC_MARGIN, color: theme.GRAY_COLOR }]}>Cambia el color del post-it</Text>
+          <Text style={[global.txt, global.tagTxt, { marginTop: theme.GENERIC_MARGIN, color: theme.MEDIUMGRAY_COLOR }]}>Cambia el color del post-it</Text>
           <View style={[global.rowDistributed, { marginTop: theme.GENERIC_MARGIN, marginBottom: theme.GENERIC_MARGIN }]}>
             <TouchableWithoutFeedback
             onPress={ () => {setCurrentColor('yellow'), setColorid('0')} } >
