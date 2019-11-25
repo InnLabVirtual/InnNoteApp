@@ -10,8 +10,8 @@ import {
 } from 'react-native'
 
 import styles from './styles'
-import common from '../../../styles/common.style'
-import themeStyle from '../../../styles/theme.style'
+import common from '../../../../styles/common.style'
+import theme from '../../../../styles/theme.style'
 
 
 /* eslint-enable */

@@ -102,9 +102,6 @@ const RegisText = (props) => {
               <View style={[styles.selector, currentColor=== 'blue' && styles.selectorActiveBlue, { borderColor: theme.BLUE_COLOR }]}></View>
             </TouchableWithoutFeedback>
           </View>
-          <Text>
-            UserData: {props.userData.name}
-          </Text>
         </View>
       </View>
     </ScrollView>

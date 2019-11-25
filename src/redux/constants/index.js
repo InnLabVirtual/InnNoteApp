@@ -1,3 +1,6 @@
+export const SET_ACTIVE_MENU = "SET_ACTIVE_MENU"
+export const SET_ISACTIVE = "SET_ISACTIVE"
+
 export const SET_PROJECTS_DATA = "SET_PROJECTS_DATA"
 
 export const SET_USER = "SET_USER"

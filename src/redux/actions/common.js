@@ -1,10 +1,10 @@
 import database from '@react-native-firebase/database';
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU } from '../constants';
 
-function setUser(user) {
+function setActiveMenu(activeElement) {
     return {
-        type: SET_USER,
-        payload: user,
+        type: SET_ACTIVE_MENU,
+        payload: activeElement
     }
 }
 
@@ -12,6 +12,14 @@ function setSetupCompleted(isSetupCompleted) {
     return {
         type: SET_SETUP_COMPLETED,
         payload: isSetupCompleted,
+    }
+}
+
+
+function setUser(user) {
+    return {
+        type: SET_USER,
+        payload: user,
     }
 }
 

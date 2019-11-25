@@ -16,17 +16,21 @@ import {
 import global from './../../styles/common.style'
 import theme from './../../styles/theme.style'
 import styles from './styles'
+import TextComponent from '../../components/Recordings/TextComponent/TextComponent'
 
-const Notifications = (props) => {
+const Recordings = (props) => {
 
   return (
     <View>
         <Text>
-            This is notifications componemt
+            This is recordings componemt
         </Text>
+        <TextComponent>
+          
+        </TextComponent>
     </View>
     )
 }
 
-export default Notifications
+export default Recordings
 

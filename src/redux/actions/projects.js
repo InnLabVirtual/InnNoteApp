@@ -15,12 +15,30 @@ const uploadProjectData = (projectData, uid, name) => {
 
     var newProjectKey = database().ref().child('projectus').push().key;
     
-    database().ref( 'projectus/' + newProjectKey ).set (
-      { name: projectData.name, id: newProjectKey }
+    database()
+    .ref( 'projectus/' + newProjectKey )
+    .set (
+      { 
+        name: projectData.name, 
+        id: newProjectKey 
+      }
     ).then (() => {
-      database().ref('users/' + uid + '/projects/' + newProjectKey).set({ name: projectData.name, id: projectData.id })
+      database()
+      .ref('users/' + uid + '/projects/' + newProjectKey)
+      .set(
+        { 
+          name: projectData.name, 
+          id: projectData.id 
+        })
     }).then (() => {
-      database().ref('projectus/' + newProjectKey + '/users/' + uid).set({ connected: false, name: name, uid: uid })
+      database()
+      .ref('projectus/' + newProjectKey + '/users/' + uid)
+      .set({ 
+        connected: false, 
+        name: name, 
+        uid: uid,
+        pos: '0/0/0'
+      })
     })
     
   }

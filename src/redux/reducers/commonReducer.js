@@ -1,9 +1,10 @@
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU } from '../constants';
 
 const initialState = {
     user: '',
     isSetupCompleted: false,
-    userData: null
+    userData: null,
+    activeElement: 'voice'
 };
 
 const setUserReducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const setUserReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userData: action.payload
+            }
+        case SET_ACTIVE_MENU:
+            return {
+                ...state,
+                activeElement: action.payload
             }
         default:
             return state;
