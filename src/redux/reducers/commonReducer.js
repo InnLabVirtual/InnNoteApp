@@ -1,10 +1,10 @@
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, VOICE_MAINICON, TEXT_MAINICON } from '../constants';
 
 const initialState = {
     user: '',
     isSetupCompleted: false,
     userData: null,
-    activeElement: 'voice'
+    activeElement: TEXT_MAINICON
 };
 
 const setUserReducer = (state = initialState, action) => {

@@ -51,7 +51,8 @@ const watchProjects = (uid) => {
       snapshot.forEach(element => {
         projectsDataArray.push({
           name: element.val().name,
-          id: element.val().id
+          id: element.val().id,
+          team: element.val().users
         })
       });
 

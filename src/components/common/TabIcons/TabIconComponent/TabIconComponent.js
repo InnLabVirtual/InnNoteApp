@@ -13,6 +13,12 @@ import styles from './styles'
 import common from '../../../../styles/common.style'
 import theme from '../../../../styles/theme.style'
 
+import Svg, {
+  G,
+  Path,
+} from 'react-native-svg';
+
+
 
 /* eslint-enable */
 
@@ -22,15 +28,25 @@ const TabIconComponent = (
     tintColor
   }) => {
 
-
   return (
     <View>
-        <Text>
-            {label}
-        </Text>
-        <Text>
-            {tintColor}
-        </Text>
+
+      <Svg
+        width='30'
+        height='30'
+        viewBox="0 0 30 30"
+      >
+        <G
+          fillOpacity='.7'
+        >
+          <Path
+            d={label}
+            fillRule="evenodd"
+            fill={tintColor}
+          >
+          </Path>
+        </G>
+      </Svg>
     </View>
   )
 }

@@ -9,6 +9,11 @@ import {
   Image
 } from 'react-native'
 
+import Svg, {
+  G,
+  Path,
+} from 'react-native-svg';
+
 import styles from './styles'
 import common from '../../../../styles/common.style'
 import theme from '../../../../styles/theme.style'
@@ -29,18 +34,20 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
 const MainIconComponent = (
   {
-    label,
     isActive,
     ...props
   }) => {
 
-
   return (
     <View>
-      {isActive && <Text>{props.activeElement}</Text>}
+      
+      {isActive && 
+      <Image
+        style={styles.icon}  
+        source={props.activeElement}
+      />}
     </View>
   )
 }

@@ -1,3 +1,7 @@
+export const TEXT_MAINICON = require('./../../assets/icons/registerinfo/mainText.png')
+export const VOICE_MAINICON = require('./../../assets/icons/registerinfo/mainVoice.png')
+export const VOICE_MAINIMAGE = require('./../../assets/icons/registerinfo/mainVoice.png')
+
 export const SET_ACTIVE_MENU = "SET_ACTIVE_MENU"
 export const SET_ISACTIVE = "SET_ISACTIVE"
 

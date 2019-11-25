@@ -21,11 +21,12 @@ const Notifications = (props) => {
 
   return (
     <View>
-        <Text>
-            This is notifications componemt
+      <Text>
+        This is notifications component
         </Text>
+
     </View>
-    )
+  )
 }
 
 export default Notifications

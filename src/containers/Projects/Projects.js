@@ -12,6 +12,9 @@ import {
   TextInput
 } from 'react-native'
 
+import AppInput from './../../components/common/Inputs/AppInput/AppInput'
+import AppButton from './../../components/common/Inputs/AppButton/AppButton'
+
 import global from './../../styles/common.style'
 import theme from './../../styles/theme.style'
 import styles from './styles'
@@ -35,54 +38,96 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
 const Projects = (props) => {
-  
+
   const [name, setName] = useState('');
-  
+  const [projectSearch, setProjectSearch] = useState('');
 
   useEffect(() => {
-    //alert(props.user, "FROM PROJECTS");
     props.watchProjects(props.user.uid);
     console.log(props.projects, "THIS IS IN THE COMPONENT")
   }, []);
 
-  
+
   function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+  }
 
   function onCreateProject(name) {
     console.log(props.user.name, "ONPROJECTS")
-    props.uploadProjectData({name: name, id: makeid(10)}, props.user.uid, props.user.name);
+    props.uploadProjectData({ name: name, id: makeid(10) }, props.user.uid, props.user.name);
+    setName('')
   }
 
   return (
-    <View>
-      <View>
+    <View style={styles.generalContainer}>
+      <View style={styles.filtersContainer}>
+      </View>
+      <View style={styles.projectContent}>
+        <View>
+          <AppInput
+            label='Buscar proyecto'
+            onChange={project => { setProjectSearch(project.nativeEvent.text) }}
+            value={projectSearch}
+            autoCapitalize='none'
+          />
+        </View>
+        <ScrollView>
+          <View style={styles.projectBox}>
           {props.projects ? (
             props.projects.map((project) => {
               return (
-                <View>
-                  <Text>
-                    { project.name }
+                <View style={[styles.project, styles.createdProject]}>
+                <Text style={styles.projectTitle}>
+                  {project.name}
                   </Text>
-                </View>
+                <ScrollView>
+                  <View style={styles.team}>
+                    <View style={styles.teamMember}>
+                    </View>
+                  </View>
+                </ScrollView>
+              </View>
               )
             })
           ) : (
-            <View>
-              <Text>
-                Aún no hay proyectos, crea el primero
+              <View>
+                <Text>
+                  Aún no hay proyectos, crea el primero
               </Text>
+              </View>
+            )}
+            <View style={[styles.project, styles.newProject]}>
+              <Text style={styles.newProjectLabel}>
+                Crea un proyecto
+              </Text>
+              <AppInput
+                label='Dale nombre'
+                onChange={name => { setName(name.nativeEvent.text) }}
+                value={name}
+                autoCapitalize='words'
+                addedStyle={styles.newProjectAddInput}
+              />
+              <AppButton
+                label='+'
+                onPress={() => { onCreateProject(name) }}
+                addedStyle={styles.newProjectAddButton}
+              />
             </View>
-          )}        
+
+
+          </View>
+        </ScrollView>
+      </View>
+      {/*
+      <View>
+                  
       </View>
       <View>
         <TextInput
@@ -100,10 +145,11 @@ const Projects = (props) => {
         </TouchableNativeFeedback>
 
       </View>
+      */}
     </View>
   )
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (Projects)
+export default connect(mapStateToProps, mapDispatchToProps)(Projects)
 
