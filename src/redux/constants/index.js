@@ -1,3 +1,8 @@
+export const GET_INVITATIONS = "GET_INVITATIONS"
+export const DELETE_INVITATIONS = "DELETE_INVITATIONS"
+
+export const GET_USERS = 'GET_USERS'
+
 export const TEXT_MAINICON = require('./../../assets/icons/registerinfo/mainText.png')
 export const VOICE_MAINICON = require('./../../assets/icons/registerinfo/mainVoice.png')
 export const VOICE_MAINIMAGE = require('./../../assets/icons/registerinfo/mainVoice.png')
@@ -6,6 +11,9 @@ export const SET_ACTIVE_MENU = "SET_ACTIVE_MENU"
 export const SET_ISACTIVE = "SET_ISACTIVE"
 
 export const SET_PROJECTS_DATA = "SET_PROJECTS_DATA"
+export const SET_PROJECT_NAME = "SET_PROJECT_NAME"
+export const SET_NEWPROJECT_TEAM = "SET_NEWPROJECT_TEAM"
+export const ADD_PROJECT = "ADD_PROJECT"
 
 export const SET_USER = "SET_USER"
 export const SET_USER_DATA = "SET_USER_DATA"

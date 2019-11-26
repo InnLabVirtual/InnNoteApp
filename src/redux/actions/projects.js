@@ -1,6 +1,12 @@
 import database from '@react-native-firebase/database';
-import { SET_PROJECTS_DATA } from '../constants';
+import { SET_PROJECTS_DATA, SET_PROJECT_NAME } from '../constants';
 
+function setProjectName(projectName) {
+  return {
+    type: SET_PROJECT_NAME,
+    payload: projectName
+  }
+}
 
 function setProjectsData(projectsData) {
   return {
@@ -8,9 +14,21 @@ function setProjectsData(projectsData) {
     payload: projectsData,
   }
 }
+const addProject = (projectData, user) => {
+  return function (dispatch) {
+    database()
+      .ref('users/' + user.id + '/projects/' + projectData.projectID)
+      .set(
+        {
+          name: projectData.projectName,
+          id: projectData.projectID
+        }
+      )
+  }
+}
 
 
-const uploadProjectData = (projectData, uid, name) => {
+const uploadProjectData = (projectData, user) => {
   return function (dispatch) {
 
     var newProjectKey = database().ref().child('projectus').push().key;
@@ -19,31 +37,58 @@ const uploadProjectData = (projectData, uid, name) => {
     .ref( 'projectus/' + newProjectKey )
     .set (
       { 
-        name: projectData.name, 
+        name: projectData.projectName, 
         id: newProjectKey 
       }
-    ).then (() => {
+    )
+    .then(() => {
       database()
-      .ref('users/' + uid + '/projects/' + newProjectKey)
-      .set(
-        { 
-          name: projectData.name, 
-          id: projectData.id 
-        })
-    }).then (() => {
-      database()
-      .ref('projectus/' + newProjectKey + '/users/' + uid)
+      .ref('projectus/' + newProjectKey + '/users/' + user.uid)
       .set({ 
         connected: false, 
-        name: name, 
-        uid: uid,
+        name: user.name, 
+        uid: user.uid,
         pos: '0/0/0'
       })
     })
-    
+    .then(() => {
+      database()
+      .ref('users/' + user.uid + '/projects/' + newProjectKey)
+      .set(
+        {
+          name: projectData.projectName,
+          id: newProjectKey
+        }
+      )
+    })
+    .then(() => {
+      projectData.teamMembers.forEach(member => {
+        var newInvitationKey = database().ref('users/' + member).child('invitations').push().key;
+
+        database()
+        .ref('users/' + member + '/invitations/' + newInvitationKey )
+        .set(
+          { 
+            project_user: user.name,
+            project_name: projectData.projectName,
+            project_id: newProjectKey, 
+            id: newInvitationKey 
+          })
+      })
+    })
+
   }
 }
-
+/*
+        database()
+        .ref('projectus/' + newProjectKey + '/users/' + member)
+        .set({
+          connected: false,
+          pos: '0/0/0',
+          name: member,
+          uid: member
+        })
+*/
 const watchProjects = (uid) => {
   return function (dispatch) {
     database().ref('users/' + uid + '/projects').on('value', function (snapshot) {
@@ -65,4 +110,9 @@ const watchProjects = (uid) => {
 };
 
 
-export { uploadProjectData, watchProjects }
+export { 
+  uploadProjectData, 
+  watchProjects, 
+  setProjectName,
+  addProject 
+}

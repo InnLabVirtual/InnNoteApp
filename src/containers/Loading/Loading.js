@@ -13,7 +13,8 @@ import theme from './../../styles/theme.style'
 import styles from './styles'
 
 import { connect } from 'react-redux';
-import { setUser } from '../../redux/actions/common';
+import { setUser, watchSetupCompleted, watchInvitations } from '../../redux/actions/common';
+import { watchProjects } from '../../redux/actions/projects';
 import { bindActionCreators } from 'redux';
 
 
@@ -34,7 +35,10 @@ const mapDispatchToProps = dispatch => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUser: (user) => dispatch(setUser(user))
+    setUser: (user) => dispatch(setUser(user)),
+    watchSetupCompleted: (uid) => dispatch(watchSetupCompleted(uid)), 
+    watchInvitations: (uid) => dispatch(watchInvitations(uid)), 
+    watchProjects: (uid) => dispatch(watchProjects(uid)) 
   }
 }
 
@@ -45,6 +49,13 @@ const Loading = (props) => {
 
   function onAuthStateChanged(user) { 
     props.setUser(user);
+    if (user) {
+
+      props.watchSetupCompleted(user.uid);
+      props.watchInvitations(user.uid);
+      props.watchProjects(user.uid);
+    }
+
     if (initlizing) setInitilizing(false);
   }
 
@@ -59,10 +70,10 @@ const Loading = (props) => {
     props.navigation.navigate('AuthNav'); 
   } else {
     if (props.isSetupCompleted) {
-      console.log(props.isSetupCompleted)
+      console.log(props.isSetupCompleted, "ENTERED TO MAINTABNAV")
       props.navigation.navigate('MainTabNav'); 
     } else {
-      console.log(props.isSetupCompleted)
+      console.log(props.isSetupCompleted, "ENTERED TO SETUPNAV")
       props.navigation.navigate('SetupNav')
     }
   }

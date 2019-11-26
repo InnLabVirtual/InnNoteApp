@@ -1,14 +1,32 @@
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, VOICE_MAINICON, TEXT_MAINICON } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, VOICE_MAINICON, TEXT_MAINICON, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS } from '../constants';
 
 const initialState = {
     user: '',
-    isSetupCompleted: false,
+    users: [],
+    isSetupCompleted: true,
     userData: null,
-    activeElement: TEXT_MAINICON
+    activeElement: TEXT_MAINICON,
+    newProjectTeam: [],
+    invitations: []
 };
 
 const setUserReducer = (state = initialState, action) => {
     switch(action.type) {
+        case SET_NEWPROJECT_TEAM: 
+            return {
+                ...state,
+                newProjectTeam: action.payload
+            }
+        case GET_INVITATIONS: 
+            return {
+                ...state,
+                invitations: action.payload
+            }
+        case GET_USERS: 
+            return {
+                ...state,
+                users: action.payload
+            }
         case SET_USER:
             return {
               ...state,
@@ -17,7 +35,7 @@ const setUserReducer = (state = initialState, action) => {
         case SET_SETUP_COMPLETED:
             return {
                 ...state,
-                isSetupCompleted: !state.isSetupCompleted
+                isSetupCompleted: action.payload
             }
         case SET_USER_DATA:
             return {

@@ -20,6 +20,7 @@ const AppButton = (
     onPress,
     label,
     addedStyle,
+    txtAddedStyle,
     ...props
   }) => {
 
@@ -28,6 +29,7 @@ const AppButton = (
     <View>
       <TouchableNativeFeedback
         onPress={onPress}
+        style={{ borderRadius: themeStyle.BUTTON_CORNER_RADIUS}}
       >
         <View
           style={[
@@ -38,7 +40,8 @@ const AppButton = (
             style={[
               common.txt,
               common.highTxt,
-              common.btnText
+              common.btnText,
+              txtAddedStyle
             ]}
           >
             {label}

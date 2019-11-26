@@ -6,7 +6,8 @@ import common from './../../styles/common.style'
 export default StyleSheet.create({
     generalContainer: {
         flexDirection: 'row',
-        height: '100%'
+        height: '100%',
+        backgroundColor: 'white'
     },
     filtersContainer: {
         backgroundColor: theme.BACKGROUND_COLOR,
@@ -64,12 +65,13 @@ export default StyleSheet.create({
         height: 270,
         borderRadius: theme.CARD_CORNER_RADIUS,
         padding: theme.GENERIC_MARGIN,
-        marginBottom: theme.GENERIC_MARGIN
+        marginBottom: theme.GENERIC_MARGIN,
+       
     },
     createdProject: {
         backgroundColor: theme.PRIMARY_COLOR,
-        justifyContent: 'center',
-        
+        justifyContent: 'flex-start',
+        elevation: 15 
     },
     projectTitle: {
         ...common.txt,
@@ -78,7 +80,8 @@ export default StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         paddingTop: theme.LITTLE_MARGIN,
-        paddingBottom: theme.LITTLE_MARGIN
+        paddingBottom: theme.LITTLE_MARGIN,
+        lineHeight: 25
         
     },
     team: {

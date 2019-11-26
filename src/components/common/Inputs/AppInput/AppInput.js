@@ -24,6 +24,8 @@ const AppInput = (
     label,
     secureTextEntry,
     addedStyle,
+    multiline,
+    maxLength,
     ...props
   }) => {
 
@@ -64,6 +66,8 @@ const AppInput = (
         ]}
         onFocus={() => { handleFocus() }}
         onBlur={() => { handleBlur() }}
+        multiline={multiline}
+        maxLength={maxLength}
       />
     </View>
   )

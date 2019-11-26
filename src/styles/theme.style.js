@@ -36,6 +36,7 @@ export default {
   MARGIN_PHASEMAP: 28,
 
 
-  TAB_BAR_HEIGHT: 65
+  TAB_BAR_HEIGHT: 65,
+  ICON_INPUT_PADDING: 7
 
 }

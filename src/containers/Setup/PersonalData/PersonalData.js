@@ -8,13 +8,14 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Button,
-  Image
+  Image,
+  Alert
 } from 'react-native'
 
 /* eslint-enable */
 
 import { connect } from 'react-redux';
-import { setSetupCompleted, uploadUserData } from '../../../redux/actions/common';
+import { setSetupCompleted, uploadUserData, uploadSetupCompleted } from '../../../redux/actions/common';
 
 import AppInput from './../../../components/common/Inputs/AppInput/AppInput'
 
@@ -33,8 +34,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setSetupCompleted: (isSetupCompleted) => dispatch(setSetupCompleted(isSetupCompleted)),
-    uploadUserData: (userData) => dispatch(uploadUserData(userData))
-
+    uploadUserData: (userData) => dispatch(uploadUserData(userData)),
+    uploadSetupCompleted: (isSetupCompleted, userData) => dispatch(uploadSetupCompleted(isSetupCompleted, userData))
   }
 }
 
@@ -45,8 +46,12 @@ const PersonalData = (props) => {
   const [profession, setProfession] = useState('');
 
   function onUserData(name) {
-    props.uploadUserData({ uid: props.user.uid, name: name })
-    props.setSetupCompleted(true);
+    if (name != '') {
+      props.uploadUserData({ uid: props.user.uid, name: name })
+      props.uploadSetupCompleted(true, props.user.uid)
+    } else {
+      Alert.alert('Algo ha ido mal','Por favor escribe un nombre')
+    }
   }
 
   return (
@@ -57,33 +62,24 @@ const PersonalData = (props) => {
         </Text>
       </View>
       <View style={setupStyles.setupContainer}>
-        <View style={styles.inputContainer}>
-          <AppInput
-            label='Nombre'
-            value={name}
-            autoCapitalize='words'
-            autoCompleteType='name'
-            onChange={name => { setName(name.nativeEvent.text) }}
-            addedStyle={[styles.halfInput, styles.dataInput]}
-          />
-          <AppInput
-            label='Apellido'
-            value={lastName}
-            autoCompleteType='name'
-            autoCapitalize='words'
-            onChange={lastName => { setLastName(lastName.nativeEvent.text) }}
-            addedStyle={[styles.halfInput, styles.dataInput]}
-          />
-        </View>
-        <AppInput 
+        <AppInput
+          label='Nombre'
+          value={name}
+          autoCapitalize='words'
+          autoCompleteType='name'
+          onChange={name => { setName(name.nativeEvent.text) }}
+          addedStyle={[styles.halfInput, styles.dataInput]}
+        />
+
+        <AppInput
           label='¿A que te dedicas?'
-          onChange={profession => { setProfession(profession.nativeEvent.text) }}  
+          onChange={profession => { setProfession(profession.nativeEvent.text) }}
           value={profession}
           autoCapitalize='sentences'
         />
       </View>
       <View style={setupStyles.wizardMenu}>
-        <TouchableWithoutFeedback 
+        <TouchableWithoutFeedback
         >
           <Text style={[setupStyles.wizardMenuTag]}>
             Volver
@@ -94,7 +90,7 @@ const PersonalData = (props) => {
           <View style={[setupStyles.wizardMenuItem]}></View>
           <View style={[setupStyles.wizardMenuItem]}></View>
         </View>
-        <TouchableWithoutFeedback 
+        <TouchableWithoutFeedback
           onPress={() => { onUserData(name) }}
         >
           <Text style={[
@@ -102,7 +98,7 @@ const PersonalData = (props) => {
             {
               color: theme.PRIMARY_COLOR
             }
-            ]}>
+          ]}>
             Siguiente
           </Text>
         </TouchableWithoutFeedback>
