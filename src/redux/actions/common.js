@@ -1,10 +1,10 @@
 import database from '@react-native-firebase/database';
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS, SET_ISCONNECTED } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS, SET_ISCONNECTED, CURRENT_PHASE } from '../constants';
 
-function setActiveMenu(activeElement) {
+function setCurrentPhase(currentPhase) {
   return {
-    type: SET_ACTIVE_MENU,
-    payload: activeElement
+    type: CURRENT_PHASE,
+    payload: currentPhase
   }
 }
 
@@ -204,5 +204,6 @@ export {
   watchSetupCompleted, 
   watchInvitations,
   deleteInvitation,
-  watchIsConnected
+  watchIsConnected,
+  setCurrentPhase
 }

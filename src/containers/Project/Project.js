@@ -1,5 +1,5 @@
 ﻿/* eslint-disable */
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   StyleSheet,
@@ -7,7 +7,8 @@ import {
   View,
   Text,
   Button,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Image
 } from 'react-native'
 
 import styles from './styles'
@@ -19,11 +20,14 @@ import Activity from '../../components/Project/Activity/Activity'
 
 
 import { connect } from 'react-redux';
-import { watchCurrentProject } from '../../redux/actions/projects';
+import { setCurrentPhase } from '../../redux/actions/common';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import TeamComponent from '../../components/Project/TeamComponent/TeamComponent'
+import AppButton from '../../components/common/Inputs/AppButton/AppButton'
+import common from '../../styles/common.style'
+import ActivityBox from '../../components/Project/ActivityBox/ActivityBox'
 
 /* eslint-enable */
 
@@ -32,172 +36,230 @@ const mapStateToProps = (state) => {
   return {
     user: state.commonData.user,
     projects: state.projectsData.projects,
-    currentProject: state.projectsData.currentProject
+    currentProject: state.projectsData.currentProject,
+    currentPhase: state.commonData.currentPhase
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setCurrentPhase: (currentPhase) => dispatch(setCurrentPhase(currentPhase))
   }
 }
 
 const Project = (props) => {
-
-
-  if (!props.currentProject) {
-    return <View>
-      <Text>
-        Selecciona por favor un proyecto
-      </Text>
-      <Button
-        title='Seleccionar un proyecto'
-      >
-
-      </Button>
-      </View>
-  } else {
   
-  return (
-    <ScrollView>
-      <View style={{
-        backgroundColor: theme.BACKGROUND_COLOR
-      }}>
-        <ScrollView style={[
-          styles.bodyContainer,
+  
+  function getStepTitle () {
+    switch (props.currentPhase) {
+      case '1':
+        return 'Empatizar'
+      case '2':
+        return 'Definir'
+      case '3':
+        return 'Idear'
+      case '4':
+        return 'Prototipar'
+      case '5':
+        return 'Testear'
+    }
+     
+  }
+  if (!props.currentProject) {
+    return (
+      <View>
+        <View style={styles.copy}>
+          <Text style={styles.copyTitle}>
+            :(
+        </Text>
+          <Text style={styles.copyTxt}>
+            No se encontró un proyecto, selecciona uno
+        </Text>
+          <AppButton
+            label='Seleccionar un proyecto'
+            onPress={() => { props.navigation.navigate('Projects') }}
+          />
+        </View>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require('./../../assets/images/notifImage.png')}
+          />
+        </View>
+      </View>
+    )
+
+  } else {
+
+    return (
+      <ScrollView style={[
+        common.bodyContainer,
+        {
+          marginBottom: 0,
+          backgroundColor: theme.BACKGROUND_COLOR,
+          paddingRight: 0,
+          paddingLeft: 0
+        }
+      ]}>
+
+        <TeamComponent addedStyle={
           {
-            marginBottom: 0
+            marginRight: theme.GENERIC_MARGIN,
+            marginLeft: theme.GENERIC_MARGIN
+          }
+        } />
+
+        <View style={[styles.projectCard, {
+
+              marginRight: theme.GENERIC_MARGIN,
+              marginLeft: theme.GENERIC_MARGIN
+        
+          
+        }]}>
+          <Text style={[styles.littleTitle]}>
+            Actividades de
+            </Text>
+          <Text style={[styles.bigTitle]}>
+            Investigación
+            </Text>
+        </View>
+
+        <ActivityBox
+          navigation={props.navigation}
+          initialActivity='emphatymap'
+          activities={[
+            {
+              icon: 
+              <Text>Entrevista</Text>,
+              name: 'Entrevista',
+              time: '30 min / sesión',
+              id: 'interview'
+            },
+            {
+              icon: 
+              <Text>Mosca en la pared</Text>,
+              name: 'Mosca en la pared',
+              time: '1 hora / sesión',
+              id: 'flyonthewall'
+            },
+            {
+              icon: 
+              <Text>Grupo focal</Text>,
+              name: 'Grupo focal',
+              time: '1 hora / sesión',
+              id: 'focalgroup'
+            },
+            
+          ]}
+        />
+        
+        <View style={[
+          styles.projectCard,
+          {
+            alignItems: 'center',
+            marginRight: theme.GENERIC_MARGIN,
+            marginLeft: theme.GENERIC_MARGIN
           }
         ]}>
-
-          <TeamComponent />
-          <View style={[
-            global.card,
+          <Text style={[styles.littleTitle]}>
+            Te encuentras en
+            </Text>
+          <Text style={[styles.bigTitle]}>
             {
-              backgroundColor: 'white'
+              getStepTitle()
             }
-          ]}>
-            <Text style={[
-              global.txt,
-              global.tag,
-              global.cardTxt,
-              {
-                textAlign: 'center',
-                color: theme.LIGHTGRAY_COLOR
-              }
-            ]}>
-              Actividades de
             </Text>
-            <Text style={[
-              global.txt,
-              global.title,
-              global.highTxt,
-              global.cardTxt,
-              {
-                textAlign: 'center'
-              }
-            ]}>
-              Investigación
-            </Text>
+
+          <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 10 }}>
+            <DesignTGraph currentStepID={props.currentPhase} isLittle={false} />
           </View>
 
-          { // TODO 
+          <Text style={[ styles.littleTag ]}>
+            Presiona en la etapa para cambiar las actividades de innovación
+          </Text>
+        </View>
+        <View style={[
+          global.card,
+          {
+            backgroundColor: 'white',
+            marginRight: theme.GENERIC_MARGIN,
+            marginLeft: theme.GENERIC_MARGIN
           }
-          <View style={{ alignItems: 'center', marginTop: theme.GENERIC_MARGIN }}>
-            <Activity navigation={props.navigation} name={'Mapa de empatía'} time={30} />
-          </View>
-
-          <View style={[
-            global.card,
-            {
-              backgroundColor: 'white',
-              alignItems: 'center'
-            }
+        ]}>
+          <Text style={[
+            styles.littleTitle
           ]}>
-            <Text style={[
-              global.txt,
-              global.tag,
-              global.cardTxt,
-              {
-                textAlign: 'center',
-                color: theme.LIGHTGRAY_COLOR
-              }
-            ]}>
-              Te encuentras en
+            Actividades de
             </Text>
-            <Text style={[
-              global.txt,
-              global.title,
-              global.highTxt,
-              global.cardTxt,
-              {
-                textAlign: 'center'
-              }
-            ]}>
-              Prototipar
-            </Text>
-
-            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 10 }}>
-              <DesignTGraph currentStepID={'3'} isLittle={false} />
-            </View>
-            <Text style={[
-              global.txt,
-              global.tagTxt,
-              global.cardTxt,
-              {
-                textAlign: 'center',
-                width: '80%',
-                marginTop: 5,
-                color: theme.LIGHTGRAY_COLOR
-              }]}>
-              Presiona en la etapa para saber más
-            </Text>
-          </View>
-          <View style={[
-            global.card,
-            {
-              backgroundColor: 'white'
-            }
+          <Text style={[
+            styles.bigTitle
           ]}>
-            <Text style={[
-              global.txt,
-              global.tag,
-              global.cardTxt,
-              {
-                textAlign: 'center',
-                color: theme.LIGHTGRAY_COLOR
-              }
-            ]}>
-              Actividades de
+            Innovación
             </Text>
-            <Text style={[
-              global.txt,
-              global.title,
-              global.highTxt,
-              global.cardTxt,
-              {
-                textAlign: 'center'
-              }
-            ]}>
-              Innovación
-            </Text>
-          </View>
-          
-          <View style={{ alignItems: 'center', marginTop: theme.GENERIC_MARGIN }}>
-            <Activity 
-            navigation={props.navigation} 
-            name={'Entrevista'} 
-            time={45} />
-          </View>
-          <Reminder />
-        </ScrollView>
-      </View>
-    </ScrollView>
-  )
-}
+        </View>
+
+        <ActivityBox
+          navigation={props.navigation}
+          initialActivity='emphatymap'
+          activities={[
+            {
+              icon: 
+              <Text>Mapa de empatía</Text>,
+              name: 'Mapa de empatía',
+              time: '1 sesión',
+              phase: '1',
+              id: 'emphatymap'
+            },
+            {
+              icon: 
+              <Text>Mosca en la pared</Text>,
+              name: 'Determinantes',
+              time: '2 sesiones',
+              phase: '2',
+              id: 'flyonthewall'
+            },
+            {
+              icon: 
+              <Text>Grupo focal</Text>,
+              name: 'Técnica Nominal',
+              time: '1 sesión',
+              phase: '3',
+              id: 'nominal'
+            },
+            {
+              icon: 
+              <Text>Grupo focal</Text>,
+              name: 'Modelo de negocio',
+              time: '1 sesión',
+              phase: '4',
+              id: 'bussiness'
+            },
+            {
+              icon: 
+              <Text>Grupo focal</Text>,
+              name: 'Planificación SCRUM',
+              time: '5 sesiones',
+              phase: '5',
+              id: 'scrum'
+            },
+            
+          ]}
+        />
+        <Reminder
+          addedStyle={{ 
+            opacity: .2,
+            marginRight: theme.GENERIC_MARGIN,
+            marginLeft: theme.GENERIC_MARGIN
+           }}
+        />
+      </ScrollView>
+
+    )
+  }
 }
 
 Project.navigationOptions = {
-  title: 'Nombre de proyecto'
+  title: 'Aquí habría un nombre de proyecto'
 }
 
 

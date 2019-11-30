@@ -21,9 +21,9 @@ import Member from './Member/Member'
 
 /* eslint-enable */
 
-const TeamComponent = () => {
+const TeamComponent = (props) => {
   return (
-    <View style={styles.teamComponent}>
+    <View style={[styles.teamComponent, props.addedStyle]}>
       
       <Text style={styles.teamTitle}>
         Equipo

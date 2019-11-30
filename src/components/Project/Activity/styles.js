@@ -4,19 +4,21 @@ import theme from './../../../styles/theme.style'
 export default StyleSheet.create({
   mainIcon: {
     elevation: 15,
-    borderRadius: theme.CARD_CORNER_RADIUS,
+    borderRadius: 200,
     padding: 12,
     backgroundColor: 'white',
     flexShrink: 1,
-    width: 64
-
-  },
-  mainIconActive: {
-    marginTop: -50,
-    marginLeft: 15
+    width: 84,
+    marginLeft: 60
   },
   mainIconContent: {
-    width: 40,
-    height: 40
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  iconSvg: {
+    width:50,
+    height:50
   }
 })

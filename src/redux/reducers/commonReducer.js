@@ -1,4 +1,4 @@
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, VOICE_MAINICON, TEXT_MAINICON, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS, SET_ISCONNECTED } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, VOICE_MAINICON, TEXT_MAINICON, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS, SET_ISCONNECTED, CURRENT_PHASE } from '../constants';
 
 const initialState = {
     user: '',
@@ -8,11 +8,17 @@ const initialState = {
     activeElement: TEXT_MAINICON,
     newProjectTeam: [],
     invitations: [],
-    isConnected: false
+    isConnected: false,
+    currentPhase: '1',
 };
 
 const setUserReducer = (state = initialState, action) => {
     switch(action.type) {
+        case CURRENT_PHASE:
+            return {
+                ...state,
+                currentPhase: action.payload
+            }
         case SET_ISCONNECTED:
             return {
                 ...state,

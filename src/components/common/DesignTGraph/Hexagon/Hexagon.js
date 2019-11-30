@@ -4,7 +4,8 @@ import React from 'react'
 
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  TouchableWithoutFeedback
 } from 'react-native'
 
 import Svg, {
@@ -19,6 +20,10 @@ import styles from './styles'
 
 const Hexagon = (props) => {
   return (
+    <TouchableWithoutFeedback
+    onPress={() => {(props.onPress(props.type))}}
+    >
+
     <View style={[props.style, {marginLeft: -5, marginRight: -5}]}>
 
       <Svg
@@ -39,6 +44,7 @@ const Hexagon = (props) => {
 
 
     </View>
+    </TouchableWithoutFeedback>
   )
 }
 

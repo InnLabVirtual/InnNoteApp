@@ -1,10 +1,11 @@
-﻿/* eslint-disable */ 
+﻿/* eslint-disable */
 import React from 'react'
 
 import {
   View,
   Text,
   TouchableNativeFeedback,
+  TouchableWithoutFeedback,
   Image
 } from 'react-native'
 import global from '../../../styles/common.style'
@@ -12,44 +13,86 @@ import theme from '../../../styles/theme.style'
 import styles from './styles'
 import DesignTGraph from '../../common/DesignTGraph/DesignTGraph'
 
+
+import { connect } from 'react-redux';
+
+
+
 /* eslint-enable */
 
+
+const mapStateToProps = (state) => {
+  return {
+    currentPhase: state.commonData.currentPhase
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+
 const Activity = (props) => {
+  //     <TouchableWithoutFeedback onPress={() => }>
+
+  function handleActivityChange () {
+
+    props.navigation.navigate('Activity', 
+    { 
+      name: props.name,
+      time: props.time,
+      phase: props.phase,
+      id: props.id
+    })
+  }
+
   return (
-    <TouchableNativeFeedback onPress={() => props.navigation.navigate('Activity', { name: props.name })}>
-      <View style= {[global.card, { elevation: 12, width: 260, height: 220, justifyContent: 'space-between' }]}>
-        <View>
-          <View style={{}}>
-            <View style={{ transform: [{ scale: 0.3 }], position: 'absolute', top: -25, right: -90 }}>
-              <DesignTGraph isLittle={ true } currentStepID={'1'} />
-            </View>
-            <View style={[styles.mainIcon, styles.mainIconActive]}>
-              <View style={styles.mainIconContent}>
-                <Image 
-                  source={require('./../../../assets/icons/activity/empathy_map/empathy_map.png')}
-                />  
-              </View>
-            </View>
+    <TouchableWithoutFeedback
+    onPress={() => {handleActivityChange()}}
+    
+    >
+      <View style={[{paddingTop: 10}, props.phase && !(props.phase == props.currentPhase) && {opacity: .2}]}>
+        <View style={[styles.mainIcon]}>
+          <View style={styles.mainIconContent}>
+            <Image
+              source={require('./../../../assets/icons/activity/empathy_map/empathy_map.png')}
+              style={styles.iconSvg}
+            />
           </View>
         </View>
-        <View>
-          <Text style={[global.txt, global.highTxt, global.title, { color: 'white' }]}>
-            {props.name}
-          </Text>
-          <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={[global.cardIcon, global.cardTxt, { alignItems: 'center', justifyContent: 'center' }]}>
-              <Image 
-                    source={require('./../../../assets/icons/activity/time.png')}
-                  />  
-              </View>
-            <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
-              {props.time} min / sesión
+        <View style={[
+          global.card,
+          {
+            margin: 20,
+            elevation: 12,
+            width: 260,
+            height: 220,
+            justifyContent: 'flex-end',
+            marginTop: -50
+          }
+        ]}>
+
+          <View>
+            <Text style={[global.txt, global.highTxt, global.title, { color: 'white' }]}>
+              {props.name}
             </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={[global.cardIcon, global.cardTxt, { alignItems: 'center', justifyContent: 'center' }]}>
+                <Image
+                  source={require('./../../../assets/icons/activity/time.png')}
+                />
+              </View>
+              <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
+                {props.time}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-    </TouchableNativeFeedback>
+    </TouchableWithoutFeedback>
+
   )
 }
 
-export default Activity
+export default connect(mapStateToProps, mapDispatchToProps)(Activity)

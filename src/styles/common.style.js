@@ -59,9 +59,8 @@ export default StyleSheet.create({
     height: 30
   },
   bodyContainer: {
-    marginTop: 0,
-    marginLeft: theme.GENERIC_MARGIN,
-    marginRight: theme.GENERIC_MARGIN,
+    paddingRight: theme.GENERIC_MARGIN,
+    paddingLeft: theme.GENERIC_MARGIN,
     flex: 1
   },
   // Those are card stylings

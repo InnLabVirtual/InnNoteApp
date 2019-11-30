@@ -73,12 +73,12 @@ const Activity = (props) => {
   return (
     <ScrollView>
       <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
-        <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
+        <ScrollView style={[global.bodyContainer, { paddingLeft: 0, paddingRight: 0 }]}>
           <View style={[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
             <View>
               <View style={{}}>
                 <View style={{ transform: [{ scale: 0.3 }], position: 'absolute', bottom: -180, right: -90 }}>
-                  <DesignTGraph isLittle={true} currentStepID={activities[0].currentStepID} />
+                  <DesignTGraph isLittle={true} currentStepID={props.navigation.getParam('phase', 1)} />
                 </View>
                 <View style={[global.mainIcon, styles.mainIconActive]}>
                   <View style={global.mainIconContent}>
@@ -91,7 +91,7 @@ const Activity = (props) => {
             </View>
             <View>
               <Text style={[global.txt, global.highTxt, global.title, { color: 'white' }]}>
-                {activities[0].title}
+                {(props.navigation.getParam('name', 'Nombre de act...'))}
               </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                 <View style={[global.cardIcon, global.cardTxt, { justifyContent: 'center', alignItems: 'center' }]}>
@@ -100,7 +100,7 @@ const Activity = (props) => {
                   />
                 </View>
                 <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
-                  {activities[0].timePerClass} min / sesión
+                {(props.navigation.getParam('time', 'Tiempo de act...'))}
               </Text>
               </View>
             </View>

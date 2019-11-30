@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 import React from 'react'
 
 import {
@@ -12,11 +12,17 @@ import styles from './styles'
 
 /* eslint-enable */
 
-const Reminder = () => {
+const Reminder = (props) => {
   return (
-    <View style= {[global.card, { backgroundColor: 'white' }]}>
+    <View style={[
+      global.card,
+      props.addedStyle,
+      {
+        backgroundColor: 'white'
+      }
+    ]}>
       <View style={{ flexDirection: 'row' }}>
-        <View style= {{
+        <View style={{
           flexDirection: 'column',
           alignItems: 'center',
           paddingLeft: 20,
@@ -25,7 +31,7 @@ const Reminder = () => {
           <Text style={[global.txt, { color: theme.PRIMARY_COLOR }]}>
             vie.
           </Text>
-          <Text style= {[
+          <Text style={[
             global.txt,
             global.highTxt,
             {
@@ -43,11 +49,11 @@ const Reminder = () => {
             oct
           </Text>
         </View>
-        <View style= {{ width: 0, flexGrow: 1, flex: 1 }}>
+        <View style={{ width: 0, flexGrow: 1, flex: 1 }}>
           <Text style={[global.txt, global.highTxt]}>
             Tu siguiente reunión
           </Text>
-          <Text style= {[global.txt]}>
+          <Text style={[global.txt]}>
             ¿Deseas programar otra reunión?
           </Text>
         </View>
@@ -55,7 +61,7 @@ const Reminder = () => {
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
         <TouchableNativeFeedback>
           <View style={[global.cardButton, { backgroundColor: theme.PRIMARY_COLOR }]}>
-            <Text style= {[global.txt, global.highTxt, { color: 'white' }]}>
+            <Text style={[global.txt, global.highTxt, { color: 'white' }]}>
               Ir al calendario
             </Text>
           </View>
