@@ -16,21 +16,12 @@ import Hexagon from './Hexagon/Hexagon'
 const DesignTGraph = (props) => {
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={ [styles.emphatize, (props.currentStepID !== '1' & props.isLittle && { opacity: theme.LOW_OPACITY })] }>
-        <Hexagon phaseColor={props.isLittle ? 'white' : (props.currentStepID === '1' ? theme.PRIMARY_COLOR : theme.SUPERLIGHTGRAY_COLOR) } />
-      </View>
-      <View style={ [styles.define, (props.currentStepID !== '2' & props.isLittle && { opacity: theme.LOW_OPACITY })] }>
-        <Hexagon phaseColor={props.isLittle ? 'white' : (props.currentStepID === '2' ? theme.PRIMARY_COLOR : theme.SUPERLIGHTGRAY_COLOR)} />
-      </View>
-      <View style={ [styles.ideate, (props.currentStepID !== '3' & props.isLittle && { opacity: theme.LOW_OPACITY })] }>
-        <Hexagon phaseColor={props.isLittle ? 'white' : (props.currentStepID === '3' ? theme.PRIMARY_COLOR : theme.SUPERLIGHTGRAY_COLOR)} />
-      </View>
-      <View style={ [styles.prototyp, (props.currentStepID !== '4' & props.isLittle && { opacity: theme.LOW_OPACITY })] }>
-        <Hexagon phaseColor={props.isLittle ? 'white' : (props.currentStepID === '4' ? theme.PRIMARY_COLOR : theme.SUPERLIGHTGRAY_COLOR)} />
-      </View>
-      <View style={ [styles.test, (props.currentStepID !== '5' & props.isLittle && { opacity: theme.LOW_OPACITY })] }>
-        <Hexagon phaseColor={props.isLittle ? 'white' : (props.currentStepID === '5' ? theme.PRIMARY_COLOR : theme.SUPERLIGHTGRAY_COLOR)} />
-      </View>
+      
+      <Hexagon style={[styles.emphatize]} isActive={(props.currentStepID === '1' ? true : false)} />
+      <Hexagon style={[styles.define]} isActive={(props.currentStepID === '2' ? true : false)} />
+      <Hexagon style={[styles.ideate]} isActive={(props.currentStepID === '3' ? true : false)} />
+      <Hexagon style={[styles.prototyp]} isActive={(props.currentStepID === '4' ? true : false)} />
+      <Hexagon style={[styles.test]} isActive={(props.currentStepID === '5' ? true : false)} />
     </View>
   )
 }

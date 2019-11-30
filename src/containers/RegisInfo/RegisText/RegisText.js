@@ -42,7 +42,6 @@ const RegisText = (props) => {
 
   function onCreatePostIt (text, color) {
     //props.registerUserData({email: text, password: text});
-    console.log(text);
     props.uploadTextRegister({text: text, color: color});
   }
 

@@ -1,5 +1,5 @@
 import database from '@react-native-firebase/database';
-import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS } from '../constants';
+import { SET_USER, SET_SETUP_COMPLETED, SET_USER_DATA, SET_ACTIVE_MENU, GET_USERS, SET_NEWPROJECT_TEAM, GET_INVITATIONS, SET_ISCONNECTED } from '../constants';
 
 function setActiveMenu(activeElement) {
   return {
@@ -24,7 +24,7 @@ function getUsers(users) {
 
 const watchInvitations = (uid) => {
   return function (dispatch) {
-    database().ref('users/' + uid + '/invitations')
+    database().ref('user/' + uid + '/invitations')
     .on('value', function (snapshot) {
       var invitationsArray = [];
       snapshot.forEach(element => {
@@ -36,7 +36,6 @@ const watchInvitations = (uid) => {
         })
       });
 
-      console.log(invitationsArray, "SABER ES INVITACIONES")
       var actionGetInvitations = getInvitations(invitationsArray);
       dispatch(actionGetInvitations)
     }, function (error) { console.log(error) });
@@ -45,7 +44,7 @@ const watchInvitations = (uid) => {
 
 function deleteInvitation(deleteData) {
   return function (dispatch) {
-    database().ref('users/' + deleteData.userID + '/invitations/' + deleteData.invitationID)
+    database().ref('user/' + deleteData.userID + '/invitations/' + deleteData.invitationID)
     .update(
       {
         id: null,
@@ -55,7 +54,7 @@ function deleteInvitation(deleteData) {
       }
     )
     .then(() => {
-      database().ref('users/' + deleteData.userID + '/invitations').on('value', function (snapshot) {
+      database().ref('user/' + deleteData.userID + '/invitations').on('value', function (snapshot) {
         var invitationsArray = [];
         snapshot.forEach(element => {
           invitationsArray.push({
@@ -66,7 +65,6 @@ function deleteInvitation(deleteData) {
           })
         });
   
-        console.log(invitationsArray, "SABER ES INVITACIONES")
         var actionGetInvitations = getInvitations(invitationsArray);
         dispatch(actionGetInvitations)
       }, function (error) { console.log(error) });
@@ -83,7 +81,7 @@ function setNewProjectTeam(newProjectTeam) {
 
 const watchUsers = () => {
   return function (dispatch) {
-    database().ref('users').on('value', function (snapshot) {
+    database().ref('user').on('value', function (snapshot) {
       var usersArray = [];
       snapshot.forEach(element => {
         usersArray.push({
@@ -92,7 +90,6 @@ const watchUsers = () => {
         })
       });
 
-      console.log(usersArray, "SABER ES CONOCIMIENTO")
       var actionGetUsers = getUsers(usersArray);
       dispatch(actionGetUsers)
     }, function (error) { console.log(error) });
@@ -108,7 +105,7 @@ function setSetupCompleted(isSetupCompleted) {
 
 const watchSetupCompleted = (uid) => {
   return function (dispatch) {
-    database().ref('users/' + uid).on('value', function (snapshot) {
+    database().ref('user/' + uid).on('value', function (snapshot) {
       
       let isSetupCompleted = snapshot.val() && snapshot.val().setupCompleted
 
@@ -121,7 +118,7 @@ const watchSetupCompleted = (uid) => {
 
 function uploadSetupCompleted(isSetupCompleted, uid) {
   return function (dispatch) {
-    database().ref('users/' + uid).update(
+    database().ref('user/' + uid).update(
       {
         setupCompleted: isSetupCompleted
       }
@@ -147,9 +144,25 @@ function setUserData(userData) {
   }
 }
 
+const watchCurrentUserData = (uid) => {
+  return function (dispatch) {
+    database().ref('user/' + uid).on('value', function (snapshot) {
+      
+      let userData = {
+        name: snapshot.val().name,
+        uid: snapshot.val().uid,
+        setupCompleted: snapshot.val().setupCompleted
+      }
+      
+      var actionSetUserData = setUserData(userData);
+      dispatch(actionSetUserData)
+    }, function (error) { console.log(error) });
+  }
+}
+
 const uploadUserData = (userData) => {
   return function (dispatch) {
-    database().ref('users/' + userData.uid).set(
+    database().ref('user/' + userData.uid).set(
       {
         name: userData.name,
         uid: userData.uid,
@@ -163,15 +176,33 @@ const uploadUserData = (userData) => {
   }
 }
 
+
+const setIsConnected = (isConnected) => {
+  return {
+    type: SET_ISCONNECTED,
+    payload: isConnected
+  }
+}
+
+const watchIsConnected = (projectId, uid) => {
+  return function (dispatch) {
+    database().ref('projects/'+projectId+'/users/'+uid).once('value', function (snapshot) {
+    
+      dispatch(setIsConnected(snapshot.val().connected));
+    }, function (error) { console.log(error) });
+  } 
+}
 export { 
   setUser, 
   setSetupCompleted, 
-  uploadUserData, 
+  uploadUserData,
+  watchCurrentUserData,
   getUsers, 
   watchUsers, 
   setNewProjectTeam, 
   uploadSetupCompleted, 
   watchSetupCompleted, 
   watchInvitations,
-  deleteInvitation
+  deleteInvitation,
+  watchIsConnected
 }

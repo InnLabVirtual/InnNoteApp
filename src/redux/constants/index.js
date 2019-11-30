@@ -9,11 +9,15 @@ export const VOICE_MAINIMAGE = require('./../../assets/icons/registerinfo/mainVo
 
 export const SET_ACTIVE_MENU = "SET_ACTIVE_MENU"
 export const SET_ISACTIVE = "SET_ISACTIVE"
+export const SET_ISCONNECTED = "SET_ISCONNECTED"
 
 export const SET_PROJECTS_DATA = "SET_PROJECTS_DATA"
 export const SET_PROJECT_NAME = "SET_PROJECT_NAME"
 export const SET_NEWPROJECT_TEAM = "SET_NEWPROJECT_TEAM"
 export const ADD_PROJECT = "ADD_PROJECT"
+
+export const GET_CURRENT_PROJECT = "GET_CURRENT_PROJECT"
+export const GET_CURRENT_PROJECTID = "GET_CURRENT_PROJECTID"  
 
 export const SET_USER = "SET_USER"
 export const SET_USER_DATA = "SET_USER_DATA"

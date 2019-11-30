@@ -59,7 +59,6 @@ const Notifications = (props) => {
 
   return (
     <View style={styles.notifs}>
-      {console.log(props.invitations, "INVITATIOOOON")}
       {props.invitations.length > 0 ?
         props.invitations.map(invitation => {
           return (

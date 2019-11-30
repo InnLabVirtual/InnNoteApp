@@ -42,7 +42,6 @@ const mapDispatchToProps = (dispatch) => {
 const PersonalData = (props) => {
 
   const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [profession, setProfession] = useState('');
 
   function onUserData(name) {

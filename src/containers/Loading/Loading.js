@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 
 import {
   View,
-  Text
+  Text,
+  AsyncStorage
 } from 'react-native'
 
 import auth from '@react-native-firebase/auth';
@@ -13,18 +14,18 @@ import theme from './../../styles/theme.style'
 import styles from './styles'
 
 import { connect } from 'react-redux';
-import { setUser, watchSetupCompleted, watchInvitations } from '../../redux/actions/common';
-import { watchProjects } from '../../redux/actions/projects';
+import { setUser, watchSetupCompleted, watchInvitations, watchCurrentUserData } from '../../redux/actions/common';
+import { watchProjects, watchCurrentProject, watchConnected } from '../../redux/actions/projects';
 import { bindActionCreators } from 'redux';
 
 
 const mapStateToProps = (state) => {
-  //console.log(state);
-
   return { 
     user: state.commonData.user,
-    isSetupCompleted: state.commonData.isSetupCompleted
-   }
+    isSetupCompleted: state.commonData.isSetupCompleted,
+    currentProject: state.projectsData.currentProject,
+    projects: state.projectsData.projects
+  }
 }
 
 /*
@@ -38,24 +39,31 @@ const mapDispatchToProps = (dispatch) => {
     setUser: (user) => dispatch(setUser(user)),
     watchSetupCompleted: (uid) => dispatch(watchSetupCompleted(uid)), 
     watchInvitations: (uid) => dispatch(watchInvitations(uid)), 
-    watchProjects: (uid) => dispatch(watchProjects(uid)) 
+    watchProjects: (uid) => dispatch(watchProjects(uid)),
+    watchCurrentUserData: (uid) => dispatch(watchCurrentUserData(uid)),
+    watchCurrentProject: (projectId) => dispatch(watchCurrentProject(projectId)),
+    watchConnected: (uid, projectID) => dispatch(watchConnected(uid, projectID))
+  
   }
+  
 }
 
 
 const Loading = (props) => {
   const [initlizing, setInitilizing] = useState(true);
   const [user, setUser] = useState();
+  
 
   function onAuthStateChanged(user) { 
     props.setUser(user);
-    if (user) {
-
+    if (user) {      
+      //props.watchCurrentProject(newValue)
+      //props.watchConnected({uid: user.uid, projId: props.currentProject.id})
+      props.watchCurrentUserData(user.uid);
       props.watchSetupCompleted(user.uid);
       props.watchInvitations(user.uid);
       props.watchProjects(user.uid);
     }
-
     if (initlizing) setInitilizing(false);
   }
 
@@ -70,10 +78,8 @@ const Loading = (props) => {
     props.navigation.navigate('AuthNav'); 
   } else {
     if (props.isSetupCompleted) {
-      console.log(props.isSetupCompleted, "ENTERED TO MAINTABNAV")
       props.navigation.navigate('MainTabNav'); 
     } else {
-      console.log(props.isSetupCompleted, "ENTERED TO SETUPNAV")
       props.navigation.navigate('SetupNav')
     }
   }

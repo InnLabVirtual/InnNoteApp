@@ -69,20 +69,30 @@ export default StyleSheet.create({
        
     },
     createdProject: {
-        backgroundColor: theme.PRIMARY_COLOR,
+        backgroundColor: 'white',
         justifyContent: 'flex-start',
-        elevation: 15 
+        elevation: 8 
+    },
+    createdProjectUnactive: {
+        marginRight: -40
     },
     projectTitle: {
         ...common.txt,
         ...common.title,
         ...common.highTxt,
-        color: 'white',
+        color: theme.PRIMARY_COLOR,
         textAlign: 'center',
         paddingTop: theme.LITTLE_MARGIN,
         paddingBottom: theme.LITTLE_MARGIN,
         lineHeight: 25
         
+    },
+    createdProjectActive: {
+        backgroundColor: theme.PRIMARY_COLOR,
+        elevation: 15
+    },
+    projectTitleActive: {
+        color: 'white',
     },
     team: {
         flexDirection: 'row'

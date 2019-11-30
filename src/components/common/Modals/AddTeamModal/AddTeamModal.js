@@ -33,6 +33,7 @@ import AppPicker from '../../Inputs/AppPicker/AppPicker';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
+    
   return {
     users: state.commonData.users,
     newProjectTeam: state.commonData.newProjectTeam,
@@ -67,7 +68,6 @@ const AddTeamModal = (
     if (props.newProjectTeam.includes(colabID) === false && colabID != '') {
       props.setNewProjectTeam(props.newProjectTeam.concat(colabID));
     }
-    console.log(props.newProjectTeam, "VAR SUBIDA")
   }
 
   function onUploadProject() {

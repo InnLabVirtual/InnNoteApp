@@ -22,9 +22,6 @@ const Recordings = (props) => {
 
   return (
     <View>
-        <Text>
-            This is recordings componemt
-        </Text>
         <TextComponent>
           
         </TextComponent>

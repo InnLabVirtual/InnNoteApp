@@ -19,6 +19,7 @@ import Activity from '../../../containers/Activity/Activity';
 import Recordings from '../../../containers/Recordings/Recordings';
 
 import theme from '../../../styles/theme.style';
+import common from '../../../styles/common.style';
 
 export default createStackNavigator (
     {
@@ -34,16 +35,16 @@ export default createStackNavigator (
             },
             headerTintColor: theme.BLACK_COLOR,
             headerTitleStyle: {
-              ...global.txt,
-              ...global.title,
-              ...global.highTxt,
+              ...common.txt,
+              ...common.title,
+              ...common.highTxt,
               fontSize: theme.FONT_SIZE_MEDIUM
             },
             headerRight: () => (
               <TouchableNativeFeedback
                 onPress={() => alert('This is a but!')}
               >
-                <View style={[global.icon, { marginRight: 10 }]}>
+                <View style={[common.icon, { marginRight: 10 }]}>
                 <Image 
                   source={require('./../../../assets/icons/header/more.png')}
                 />  
@@ -52,7 +53,7 @@ export default createStackNavigator (
             ),
             headerBackImage: 
               <View style= {{
-                ...global.icon,
+                ...common.icon,
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>

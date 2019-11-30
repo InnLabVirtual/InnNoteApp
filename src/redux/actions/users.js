@@ -38,6 +38,7 @@ const loginUserData = (userData) => {
         .then(() => {
             dispatch(loginUser);
         }).catch ((error) => {
+            alert(error)
             dispatch(loginUserError(error))
         }) 
     }
@@ -49,6 +50,7 @@ const registerUserData = (userData) => {
         .then(() => {
             dispatch(registerUser)
         }).catch ((error) => {
+            alert(error)
             dispatch(registerUserError(error))
         }) 
     }

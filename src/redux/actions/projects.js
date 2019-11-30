@@ -1,5 +1,5 @@
 import database from '@react-native-firebase/database';
-import { SET_PROJECTS_DATA, SET_PROJECT_NAME } from '../constants';
+import { SET_PROJECTS_DATA, SET_PROJECT_NAME, GET_CURRENT_PROJECT, GET_CURRENT_PROJECTID } from '../constants';
 
 function setProjectName(projectName) {
   return {
@@ -14,10 +14,20 @@ function setProjectsData(projectsData) {
     payload: projectsData,
   }
 }
+
+function getCurrentProject(projectData) {
+  return {
+    type: GET_CURRENT_PROJECT,
+    payload: projectData,
+  }
+}
+
+
+
 const addProject = (projectData, user) => {
   return function (dispatch) {
     database()
-      .ref('users/' + user.id + '/projects/' + projectData.projectID)
+      .ref('user/' + user.id + '/projects/' + projectData.projectID)
       .set(
         {
           name: projectData.projectName,
@@ -28,13 +38,28 @@ const addProject = (projectData, user) => {
 }
 
 
+const watchCurrentProject = (projectId) => {
+  return function (dispatch) {
+    database().ref('projects/'+projectId).once('value', function (snapshot) {
+      
+      let projectData = {
+        name: snapshot.val().name,
+        id: snapshot.val().id,
+      }
+
+      var actionGetProjectData = getCurrentProject(projectData);
+      dispatch(actionGetProjectData)
+    }, function (error) { console.log(error) });
+  } 
+}
+
 const uploadProjectData = (projectData, user) => {
   return function (dispatch) {
 
-    var newProjectKey = database().ref().child('projectus').push().key;
+    var newProjectKey = database().ref().child('projects').push().key;
     
     database()
-    .ref( 'projectus/' + newProjectKey )
+    .ref( 'projects/' + newProjectKey )
     .set (
       { 
         name: projectData.projectName, 
@@ -43,17 +68,19 @@ const uploadProjectData = (projectData, user) => {
     )
     .then(() => {
       database()
-      .ref('projectus/' + newProjectKey + '/users/' + user.uid)
+      .ref('projects/' + newProjectKey + '/users/' + user.uid)
       .set({ 
         connected: false, 
         name: user.name, 
         uid: user.uid,
-        pos: '0/0/0'
+        pos: '0/0/0',
+        pointer: false,
+        pointer_pos: '0/0/0'
       })
     })
     .then(() => {
       database()
-      .ref('users/' + user.uid + '/projects/' + newProjectKey)
+      .ref('user/' + user.uid + '/projects/' + newProjectKey)
       .set(
         {
           name: projectData.projectName,
@@ -63,10 +90,10 @@ const uploadProjectData = (projectData, user) => {
     })
     .then(() => {
       projectData.teamMembers.forEach(member => {
-        var newInvitationKey = database().ref('users/' + member).child('invitations').push().key;
+        var newInvitationKey = database().ref('user/' + member).child('invitations').push().key;
 
         database()
-        .ref('users/' + member + '/invitations/' + newInvitationKey )
+        .ref('user/' + member + '/invitations/' + newInvitationKey )
         .set(
           { 
             project_user: user.name,
@@ -79,30 +106,19 @@ const uploadProjectData = (projectData, user) => {
 
   }
 }
-/*
-        database()
-        .ref('projectus/' + newProjectKey + '/users/' + member)
-        .set({
-          connected: false,
-          pos: '0/0/0',
-          name: member,
-          uid: member
-        })
-*/
 const watchProjects = (uid) => {
   return function (dispatch) {
-    database().ref('users/' + uid + '/projects').on('value', function (snapshot) {
+    database().ref('user/' + uid + '/projects').on('value', function (snapshot) {
       var projectsDataArray = [];
       snapshot.forEach(element => {
         projectsDataArray.push({
           name: element.val().name,
-          id: element.val().id,
-          team: element.val().users
+          id: element.val().id
         })
       });
 
       var projectsData = projectsDataArray;
-      console.log(projectsData, "SABER ES PODER")
+
       var actionSetProjectsData = setProjectsData(projectsData);
       dispatch(actionSetProjectsData)
     }, function (error) { console.log(error) });
@@ -114,5 +130,7 @@ export {
   uploadProjectData, 
   watchProjects, 
   setProjectName,
-  addProject 
+  addProject,
+  watchCurrentProject,
+  getCurrentProject,
 }

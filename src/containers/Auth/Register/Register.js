@@ -45,8 +45,6 @@ const Register = (props) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   async function onRegister(email, password) {
-    console.log(email, "email");
-    console.log(password, "password")
     props.registerUserData({email: email, password: password})
   }
 

@@ -1,4 +1,4 @@
-﻿/* eslint-disable */ 
+﻿/* eslint-disable */
 import React from 'react'
 
 import {
@@ -8,7 +8,7 @@ import {
   Text,
   TouchableNativeFeedback,
   Image
-  } from 'react-native'
+} from 'react-native'
 
 import styles from './styles'
 import global from '../../styles/common.style'
@@ -72,173 +72,90 @@ const activities = [
 const Activity = (props) => {
   return (
     <ScrollView>
- <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
-      <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
-        <View style= {[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
-          <View>
-            <View style={{}}>
-              <View style={{ transform: [{ scale: 0.3 }], position: 'absolute', bottom: -180, right: -90 }}>
-                <DesignTGraph isLittle={ true } currentStepID={activities[0].currentStepID}/>
-              </View>
-              <View style= {[{ position: 'absolute', top: 0, right: 0, flexGrow: 1, flex: 1 }]}>
-                <TouchableNativeFeedback>
-                  <View style={[global.cardButton, { marginBottom: 10, flexShrink: 0 }]}>
-                    <Text style={[global.txt, global.highTxt, { color: theme.PRIMARY_COLOR, textAlign: 'right' }]}>
-                        Pedir Ayuda
-                    </Text>
+      <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
+        <ScrollView style={[global.bodyContainer, { marginLeft: 0, marginRight: 0 }]}>
+          <View style={[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
+            <View>
+              <View style={{}}>
+                <View style={{ transform: [{ scale: 0.3 }], position: 'absolute', bottom: -180, right: -90 }}>
+                  <DesignTGraph isLittle={true} currentStepID={activities[0].currentStepID} />
+                </View>
+                <View style={[global.mainIcon, styles.mainIconActive]}>
+                  <View style={global.mainIconContent}>
+                    <Image
+                      source={require('./../../assets/icons/activity/empathy_map/empathy_map.png')}
+                    />
                   </View>
-                </TouchableNativeFeedback>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Text style={[global.txt, global.highTxt, global.title, { color: 'white' }]}>
+                {activities[0].title}
+              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                <View style={[global.cardIcon, global.cardTxt, { justifyContent: 'center', alignItems: 'center' }]}>
+                  <Image
+                    source={require('./../../assets/icons/activity/time.png')}
+                  />
+                </View>
+                <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
+                  {activities[0].timePerClass} min / sesión
+              </Text>
+              </View>
+            </View>
+          </View>
+          <View style={[global.card, { backgroundColor: 'white', marginTop: -150, paddingTop: 150 }]}>
+            <Text style={{ textAlign: 'justify', marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN }}>
+              {
+                activities[0] && activities[0].description.map((description, index) => {
+                  return (
+                    <Text key={index} style={[
+                      styles.mainText,
+                      description.isBold && global.highTxt,
+                    ]}>
+                      {description.text}
+                    </Text>
+                  )
+                })
+              }
+            </Text>
+            <Text style={{ textAlign: 'justify', marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, marginTop: 20 }}>
+              <Text style={[styles.mainText]}>
+                Revisa el siguiente esquema, que podrás completar más adelante en
+            </Text>
+              <Text style={[styles.mainText, global.highTxt]}>
+                : InnReality
+            </Text>
+            </Text>
+          </View>
+          <View style={[global.bodyContainer]}>
 
+            <EmpathyMap currentStepID={'2'} />
+
+            <View style={[global.card]}>
+              <View style={[global.rowDistributed, { alignItems: 'center' }]}>
+                <Text style={[global.txt, global.subTitle, { color: 'white' }]}>
+                  Registro
+              </Text>
                 <TouchableNativeFeedback>
                   <View style={[global.cardButton]}>
                     <Text style={[global.txt, global.highTxt, { color: theme.PRIMARY_COLOR }]}>
-                        Ver Boomerangs
-                    </Text>
+                      Ver registros
+                  </Text>
                   </View>
                 </TouchableNativeFeedback>
               </View>
-              <View style={[global.mainIcon, styles.mainIconActive]}>
-                <View style={global.mainIconContent}>
-                <Image 
-                    source={require('./../../assets/icons/activity/empathy_map/empathy_map.png')}
-                  /> 
-                </View>
-              </View>
+
             </View>
+
           </View>
-          <View>
-            <Text style={[global.txt, global.highTxt, global.title, { color: 'white' }]}>
-              {activities[0].title}
-            </Text>
-            <View style= {{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-              <View style={[global.cardIcon, global.cardTxt, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Image 
-                    source={require('./../../assets/icons/activity/time.png')}
-                  />  
-              </View>
-              <Text style={[global.txt, global.cardTag, { color: 'white' }]}>
-                {activities[0].timePerClass} min / sesión
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={[global.card, { backgroundColor: 'white', marginTop: -150, paddingTop: 150 }]}>
-          <Text style={{ textAlign: 'justify', marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN }}>
-            {
-              activities[0] && activities[0].description.map((description, index) => {
-                return (
-                  <Text key={index} style={[
-                    styles.mainText,
-                    description.isBold && global.highTxt,
-                    ]}>
-                    {description.text}
-                  </Text>
-                )
-              })
-            }
-          </Text>
-          <Text style={{ textAlign: 'justify', marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, marginTop: 20 }}>
-            <Text style={[styles.mainText]}>
-                Revisa el siguiente esquema, que podrás completar más adelante en
-            </Text>
-            <Text style={[styles.mainText, global.highTxt]}>
-              : InnReality
-            </Text>
-          </Text>
-          <TouchableNativeFeedback>
-            <View style={[global.btn]}>
-              <Text style={[global.txt, global.highTxt, global.btnText]}>
-                Ver ejemplos
-              </Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
-        <View style={[global.bodyContainer]}>
-          <EmpathyMap currentStepID={'1'}/>
-          <View style={[global.card]}>
-            <View style={[global.rowDistributed, { alignItems: 'center' }]}>
-              <Text style={[global.txt, global.subTitle, { color: 'white' }]}>
-                Registro
-              </Text>
-              <TouchableNativeFeedback>
-                <View style={[global.cardButton]}>
-                  <Text style= {[global.txt, global.highTxt, { color: theme.PRIMARY_COLOR }]}>
-                    Ver registros
-                  </Text>
-                </View>
-              </TouchableNativeFeedback>
-            </View>
-            <View style= {[global.rowDistributed, { marginTop: 20 }]}>
-              <TouchableNativeFeedback onPress={() => props.navigation.navigate('RegisText')}>
-                <View>
-                  <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent, {justifyContent: 'center', alignItems: 'center'}]}>
-                      <Image 
-                        source={require('./../../assets/icons/registerinfo/text.png')}
-                      /> 
-                    </View>
-                  </View>
-                  <Text style={[
-                    global.txt, 
-                    { 
-                      color: 'white', 
-                      textAlign: 'center', 
-                      marginTop: 5 
-                    }]}>
-                    Texto
-                  </Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback>
-                <View>
-                  <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent, , {justifyContent: 'center', alignItems: 'center'}]}>
-                    <Image 
-                        source={require('./../../assets/icons/registerinfo/voice.png')}
-                      />
-                    </View>
-                  </View>
-                  <Text style={[
-                    global.txt, 
-                    { 
-                      color: 'white', 
-                      textAlign: 'center', 
-                      marginTop: 5 
-                    }]}>
-                    Voz
-                  </Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback>
-                <View>
-                  <View style={[global.mainIcon]}>
-                    <View style={[global.mainIconContent, , {justifyContent: 'center', alignItems: 'center'}]}>
-                      <Image 
-                        source={require('./../../assets/icons/registerinfo/image.png')}
-                      />
-                    </View>
-                  </View>
-                  <Text style={[
-                    global.txt, 
-                    { 
-                      color: 'white', 
-                      textAlign: 'center', 
-                      marginTop: 5 
-                    }]}>
-                    Imágen
-                  </Text>
-                </View>
-              </TouchableNativeFeedback>
-            </View>
-          </View>
-            
-        </View>
-        
-      </ScrollView>
-    </View>
-   
+
+        </ScrollView>
+      </View>
+
     </ScrollView>
-   )
+  )
 }
 
 

@@ -10,7 +10,8 @@ import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
   TextInput,
-  Alert
+  Alert,
+  AsyncStorage
 } from 'react-native'
 
 import AppInput from './../../components/common/Inputs/AppInput/AppInput'
@@ -21,14 +22,16 @@ import theme from './../../styles/theme.style'
 import styles from './styles'
 
 import { connect } from 'react-redux';
-import { setUser } from '../../redux/actions/common';
-import { uploadProjectData, watchProjects, setProjectName } from '../../redux/actions/projects';
+import { setUser, watchIsConnected } from '../../redux/actions/common';
+import { uploadProjectData, watchProjects, setProjectName, watchCurrentProject, getCurrentProject } from '../../redux/actions/projects';
 
 
 const mapStateToProps = (state) => {
   return {
     user: state.commonData.user,
     projects: state.projectsData.projects,
+    currentProject: state.projectsData.currentProject
+
   }
 }
 
@@ -37,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     uploadProjectData: (project, uid) => dispatch(uploadProjectData(project, uid)),
     watchProjects: (uid) => dispatch(watchProjects(uid)),
     setProjectName: (name) => dispatch(setProjectName(name)),
+    watchCurrentProject: (projectId) => dispatch(watchCurrentProject(projectId)),
+    getCurrentProject: (projectId) => dispatch(getCurrentProject(projectId)),
+    watchIsConnected: (projectId, uid) => dispatch(watchIsConnected(projectId, uid))
   }
 }
 
@@ -49,7 +55,7 @@ const Projects = (props) => {
     props.watchProjects(props.user.uid);
   }, []);
 
-  function onSetName (name) {
+  function onSetName(name) {
     if (name != '') {
       props.setProjectName(name)
       props.navigation.navigate('AddTeamModal', {
@@ -58,10 +64,14 @@ const Projects = (props) => {
       })
       setName('')
     } else {
-      Alert.alert('Algo ha ido mal','Por favor escribe un nombre de proyecto')
+      Alert.alert('Algo ha ido mal', 'Por favor escribe un nombre de proyecto')
     }
   }
 
+  function handleCurrentProjectChange(projectId) {
+    props.watchCurrentProject(projectId.id)
+    // props.watchIsConnected(projectId.id, props.user.uid)
+  }
 
   return (
     <View style={styles.generalContainer}>
@@ -78,7 +88,7 @@ const Projects = (props) => {
         </View>
         <ScrollView>
           <View style={styles.projectBox}>
-          <View style={[styles.project, styles.newProject]}>
+            <View style={[styles.project, styles.newProject]}>
               <Text style={styles.newProjectLabel}>
                 Crea un proyecto
               </Text>
@@ -97,24 +107,50 @@ const Projects = (props) => {
                 addedStyle={styles.newProjectAddButton}
               />
             </View>
-          {props.projects ? (
-            props.projects.map((project) => {
-              return (
-                <View key={project.name} style={[styles.project, styles.createdProject]}>
-                <Text style={styles.projectTitle}>
-                  {project.name}
-                  </Text>
-                
-              </View>
-              )
-            })
-          ) : (
-              <View>
-                <Text>
-                  Aún no hay proyectos, crea el primero
+            {props.projects ? (
+              props.projects.map((project) => {
+                return (
+                  <TouchableWithoutFeedback
+                    key={project.name}
+                    onPress={() => {
+                      handleCurrentProjectChange({ id: project.id })
+                    }}>
+
+                    <View style={
+                      [
+                        styles.project,
+                        styles.createdProject,
+                        props.currentProject &&
+                        (
+                          project.id == props.currentProject.id &&
+                          styles.createdProjectActive
+                        ),
+                        ,
+                        props.currentProject ?
+                        (
+                          !(project.id == props.currentProject.id) &&
+                          styles.createdProjectUnactive
+                        ) :
+                        (
+                          styles.createdProjectUnactive
+                        )
+                      ]
+                    }>
+                      <Text style={[styles.projectTitle, props.currentProject && (project.id == props.currentProject.id && styles.projectTitleActive)]}>
+                        {project.name}
+                      </Text>
+
+                    </View>
+                  </TouchableWithoutFeedback>
+                )
+              })
+            ) : (
+                <View>
+                  <Text>
+                    Aún no hay proyectos, crea el primero
               </Text>
-              </View>
-            )}
+                </View>
+              )}
           </View>
         </ScrollView>
       </View>
