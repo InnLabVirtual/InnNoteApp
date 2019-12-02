@@ -74,7 +74,16 @@ const Activity = (props) => {
     <ScrollView>
       <View style={{ backgroundColor: theme.BACKGROUND_COLOR }}>
         <ScrollView style={[global.bodyContainer, { paddingLeft: 0, paddingRight: 0 }]}>
-          <View style={[global.card, { elevation: 12, height: 220, justifyContent: 'space-between', marginTop: 40, marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN, backgroundColor: theme.PRIMARY_COLOR }]}>
+          <View style={[global.card, 
+            { 
+              elevation: 12, 
+              height: 220, 
+              justifyContent: 'space-between', 
+              marginTop: 40, 
+              marginLeft: theme.GENERIC_MARGIN, 
+              marginRight: theme.GENERIC_MARGIN, 
+              backgroundColor: props.navigation.getParam('color', theme.PRIMARY_COLOR) 
+              }]}>
             <View>
               <View style={{}}>
                 <View style={{ transform: [{ scale: 0.3 }], position: 'absolute', bottom: -180, right: -90 }}>
@@ -107,8 +116,14 @@ const Activity = (props) => {
           </View>
           <View style={[global.card, { backgroundColor: 'white', marginTop: -150, paddingTop: 150 }]}>
             <Text style={{ textAlign: 'justify', marginLeft: theme.GENERIC_MARGIN, marginRight: theme.GENERIC_MARGIN }}>
+            
               {
-                activities[0] && activities[0].description.map((description, index) => {
+                props.navigation.getParam('description', [
+                  {
+                    isBold: false,
+                    text: "No hay descripción"
+                  }
+                ]).map((description, index) => {
                   return (
                     <Text key={index} style={[
                       styles.mainText,
@@ -130,17 +145,16 @@ const Activity = (props) => {
             </Text>
           </View>
           <View style={[global.bodyContainer]}>
-
-            <EmpathyMap currentStepID={'2'} />
-
-            <View style={[global.card]}>
+          {props.navigation.getParam('scheme', 'No hay descripción...')}
+          
+            <View style={[global.card, {backgroundColor: props.navigation.getParam('color', theme.PRIMARY_COLOR)}]}>
               <View style={[global.rowDistributed, { alignItems: 'center' }]}>
                 <Text style={[global.txt, global.subTitle, { color: 'white' }]}>
                   Registro
               </Text>
                 <TouchableNativeFeedback>
                   <View style={[global.cardButton]}>
-                    <Text style={[global.txt, global.highTxt, { color: theme.PRIMARY_COLOR }]}>
+                    <Text style={[global.txt, global.highTxt, { color: props.navigation.getParam('color', theme.PRIMARY_COLOR) }]}>
                       Ver registros
                   </Text>
                   </View>
@@ -151,6 +165,23 @@ const Activity = (props) => {
 
           </View>
 
+          {/*
+            <Text>
+              Go to VR
+            </Text>
+            <TouchableNativeFeedback
+              onPress={() => {
+                alert("GOING")
+                props.navigation.navigate('InVr')
+              }}
+            >
+                <View style={global.card}>
+                  <Text>
+                    Go to VR
+                  </Text>
+                </View>
+            </TouchableNativeFeedback>
+          */}
         </ScrollView>
       </View>
 

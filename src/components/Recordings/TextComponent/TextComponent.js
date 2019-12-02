@@ -57,6 +57,19 @@ const TextComponent = (props) => {
 
   }
 
+  function getCurrentColor () {
+    if (currentColor == 'yellow') {
+      return '#FFFAEC'
+    } else if (currentColor == 'blue') {
+      return '#B6E4FF'
+    } else if (currentColor == 'green') {
+      return '#CFFFF1'
+    } else if (currentColor == 'violet') {
+      return '#D9C4FF'
+    } else if (currentColor == 'red') {
+      return '#FFC4D1'
+    }
+  }
 
   return (
     <ScrollView>
@@ -75,7 +88,7 @@ const TextComponent = (props) => {
               </TouchableNativeFeedback>
             </View>
             <TouchableWithoutFeedback>
-              <View style={styles.paperInput}>
+              <View style={ [styles.paperInput, { backgroundColor: getCurrentColor() }] }>
                 <View >
                   <TextInput style={styles.paperText}
                     placeholder="Escribe algo"

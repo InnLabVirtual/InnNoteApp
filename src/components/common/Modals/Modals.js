@@ -21,6 +21,7 @@ import theme from '../../../styles/theme.style'
 import { connect } from 'react-redux';
 import AppButton from '../Inputs/AppButton/AppButton';
 import AddTeamModal from './AddTeamModal/AddTeamModal';
+import UpdateTeamModal from './UpdateTeamModal/UpdateTeamModal';
 
 /* eslint-enable */
 
@@ -51,6 +52,9 @@ const Modals = (
         >
             {props.navigation.getParam('type', 'NO-MODAL') === 'addTeam' && (
                 <AddTeamModal navigation={props.navigation} />
+            )}
+            {props.navigation.getParam('type', 'NO-MODAL') === 'updateTeam' && (
+                <UpdateTeamModal navigation={props.navigation} />
             )}
         </View>
     </View>

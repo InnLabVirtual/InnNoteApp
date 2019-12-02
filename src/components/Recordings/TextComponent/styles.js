@@ -5,7 +5,6 @@ import global from './../../../styles/common.style'
 
 export default StyleSheet.create({
   paperInput: {
-    backgroundColor: '#FFFAEC',
     padding: 20,
     height: 300,
     flexDirection: 'row',

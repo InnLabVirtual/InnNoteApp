@@ -1,10 +1,11 @@
 /* eslint-disable */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   View,
   Text,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  ScrollView
 } from 'react-native'
 
 
@@ -19,23 +20,54 @@ import theme from '../../../styles/theme.style'
 import styles from './styles'
 import Member from './Member/Member'
 
+import { connect } from 'react-redux';
+import { watchUsers } from '../../../redux/actions/common';
+import { watchCurrentProjectUsers } from '../../../redux/actions/projects';
+
+const mapStateToProps = (state) => {
+
+  return {
+    users: state.commonData.users,
+    user: state.commonData.user,
+    currentProject: state.projectsData.currentProject,
+    projectUsers: state.projectsData.projectUsers
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    watchUsers: () => dispatch(watchUsers()),
+    watchCurrentProjectUsers: (projectID) => dispatch(watchCurrentProjectUsers(projectID)),
+  }
+}
+
 /* eslint-enable */
 
 const TeamComponent = (props) => {
+
+  useEffect(() => {
+    props.watchUsers();
+    props.watchCurrentProjectUsers(props.currentProject.id)
+  }, []);
+
   return (
     <View style={[styles.teamComponent, props.addedStyle]}>
-      
+
       <Text style={styles.teamTitle}>
         Equipo
       </Text>
-      
-      <View style={styles.teamBox}>
-        <Member name={'Cristian'} />
-        <Member name={'Cristian'} />
-        <Member name={'Cristian'} />
-        <Member name={'Cristian'} />
-        
-        <View style={styles.member}>
+
+      <ScrollView
+        horizontal={true}
+        style={styles.teamBox}>
+        {console.log("-----------PROJECT USERS ----", props.projectUsers)}
+        {props.projectUsers && props.projectUsers.map(colab => {
+          return (
+            <Member name={colab.name} />
+          )
+        })}
+
+        {/*<View style={styles.member}>
           <Svg
             width='18'
             height='4'
@@ -59,8 +91,17 @@ const TeamComponent = (props) => {
               d="M15.6667 3.66671C16.5871 3.66671 17.3333 2.92052 17.3333 2.00004C17.3333 1.07957 16.5871 0.333374 15.6667 0.333374C14.7462 0.333374 14 1.07957 14 2.00004C14 2.92052 14.7462 3.66671 15.6667 3.66671Z"
               fill={theme.LIGHTGRAY_COLOR}
             />
-          </Svg>
+          </Svg> 
         </View>
+        */}
+        <TouchableNativeFeedback
+          onPress={() => {
+            props.navigation.navigate('AddTeamModalInProject', {
+              type: 'updateTeam',
+              navigation: props.navigation
+            })
+          }}
+        >
           <View style={styles.member}>
             <Svg
               width='17'
@@ -75,10 +116,11 @@ const TeamComponent = (props) => {
               />
             </Svg>
           </View>
+        </TouchableNativeFeedback>
 
-      </View>
+      </ScrollView>
     </View>
   )
 }
 
-export default TeamComponent
+export default connect(mapStateToProps, mapDispatchToProps)(TeamComponent)

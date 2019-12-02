@@ -51,6 +51,8 @@ const ActivityBox = (props) => {
                 time={activity.time}
                 phase={activity.phase}
                 id={activity.id}
+                description={activity.description}
+                color={activity.color}
               />
             )
           } else {
@@ -65,6 +67,9 @@ const ActivityBox = (props) => {
                 time={activity.time}
                 phase={activity.phase}
                 id={activity.id}
+                scheme={activity.scheme}
+                description={activity.description}
+                color={activity.color}
               />
               )
             }

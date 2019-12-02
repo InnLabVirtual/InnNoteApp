@@ -4,6 +4,7 @@ export const GET_INVITATIONS = "GET_INVITATIONS"
 export const DELETE_INVITATIONS = "DELETE_INVITATIONS"
 
 export const GET_USERS = 'GET_USERS'
+export const GET_CURRENT_PROJECT_USERS= 'GET_CURRENT_PROJECT_USERS'
 
 export const TEXT_MAINICON = require('./../../assets/icons/registerinfo/mainText.png')
 export const VOICE_MAINICON = require('./../../assets/icons/registerinfo/mainVoice.png')

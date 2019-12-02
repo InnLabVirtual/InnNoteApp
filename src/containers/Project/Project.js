@@ -1,5 +1,5 @@
 ﻿/* eslint-disable */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   StyleSheet,
@@ -21,6 +21,7 @@ import Activity from '../../components/Project/Activity/Activity'
 
 import { connect } from 'react-redux';
 import { setCurrentPhase } from '../../redux/actions/common';
+import { watchCurrentProjectUsers } from '../../redux/actions/projects';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -28,6 +29,7 @@ import TeamComponent from '../../components/Project/TeamComponent/TeamComponent'
 import AppButton from '../../components/common/Inputs/AppButton/AppButton'
 import common from '../../styles/common.style'
 import ActivityBox from '../../components/Project/ActivityBox/ActivityBox'
+import EmpathyMap from '../../components/Activity/EmpathyMap/EmpathyMap'
 
 /* eslint-enable */
 
@@ -43,13 +45,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentPhase: (currentPhase) => dispatch(setCurrentPhase(currentPhase))
+    setCurrentPhase: (currentPhase) => dispatch(setCurrentPhase(currentPhase)),
+    watchCurrentProjectUsers: (projectID) => dispatch(watchCurrentProjectUsers(projectID)),
+
   }
 }
 
 const Project = (props) => {
-  
-  
+
   function getStepTitle () {
     switch (props.currentPhase) {
       case '1':
@@ -67,7 +70,9 @@ const Project = (props) => {
   }
   if (!props.currentProject) {
     return (
-      <View>
+      <View
+        style={{backgroundColor: theme.BACKGROUND_COLOR}}
+      >
         <View style={styles.copy}>
           <Text style={styles.copyTitle}>
             :(
@@ -102,12 +107,15 @@ const Project = (props) => {
         }
       ]}>
 
-        <TeamComponent addedStyle={
+        <TeamComponent 
+        addedStyle={
           {
             marginRight: theme.GENERIC_MARGIN,
             marginLeft: theme.GENERIC_MARGIN
           }
-        } />
+        } 
+        navigation={props.navigation}
+        />
 
         <View style={[styles.projectCard, {
 
@@ -133,21 +141,54 @@ const Project = (props) => {
               <Text>Entrevista</Text>,
               name: 'Entrevista',
               time: '30 min / sesión',
-              id: 'interview'
+              id: 'interview',
+              color: theme.BLACK_COLOR,
+              description: [
+                {
+                  text: 'La entrevista es uno de lo métodos más comunes para recoger información. Se hace a una sola persona por sesión ',
+                  isBold: false
+                },
+                {
+                  text: 'y es recomendable hacerlas en grupos de dos personas.',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
               <Text>Mosca en la pared</Text>,
               name: 'Mosca en la pared',
               time: '1 hora / sesión',
-              id: 'flyonthewall'
+              id: 'flyonthewall',
+              color: theme.BLACK_COLOR,
+              description: [
+                {
+                  text: 'La mosca en la pared consiste en infiltrarse en el contexto del usuario, no interferir en lo que está haciendo',
+                  isBold: false
+                },
+                {
+                  text: 'y registrar todo lo que haga, vea, sienta, diga o piense',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
               <Text>Grupo focal</Text>,
               name: 'Grupo focal',
               time: '1 hora / sesión',
-              id: 'focalgroup'
+              id: 'focalgroup',
+              color: theme.BLACK_COLOR,
+              description: [
+                {
+                  text: 'El grupo focal es una forma de recolección de información grupal, recoge a un grupo de mínimo 3 personas con distintos contextos, y realiza preguntas abiertas que puedan generar discusión',
+                  isBold: false
+                },
+                {
+                  text: ', la discusión es tu principal aliado, anota la información relevante, especialmente los puntos en que no estén de acuerdo',
+                  isBold: true
+                }
+              ]
             },
             
           ]}
@@ -208,7 +249,19 @@ const Project = (props) => {
               name: 'Mapa de empatía',
               time: '1 sesión',
               phase: '1',
-              id: 'emphatymap'
+              id: 'emphatymap',
+              scheme: <EmpathyMap />,
+              color: theme.EMPATHIZE_COLOR,
+              description: [
+                {
+                  text: 'El mapa de empatía te permite entender mejor a tu usuario',
+                  isBold: false
+                },
+                {
+                  text: ', su personalidad, entorno, visión del mundo, necesidades y deseos.',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
@@ -216,7 +269,19 @@ const Project = (props) => {
               name: 'Determinantes',
               time: '2 sesiones',
               phase: '2',
-              id: 'flyonthewall'
+              id: 'flyonthewall',
+              // scheme: <EmpathyMap />,
+              color: theme.DEFINE_COLOR,
+              description: [
+                {
+                  text: 'Es importante conocer lo determinante para cambiar la realidad de los usuarios',
+                  isBold: false
+                },
+                {
+                  text: ' estos son los elementos mínimos que deber tener una solución',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
@@ -224,7 +289,20 @@ const Project = (props) => {
               name: 'Técnica Nominal',
               time: '1 sesión',
               phase: '3',
-              id: 'nominal'
+              id: 'nominal',
+              color: theme.IDEATION_COLOR,              scheme: <EmpathyMap />,
+              // scheme: <EmpathyMap />,
+              
+              description: [
+                {
+                  text: 'La técnica nominal  sirve para generar ideas en conjunto. Cada quien escribe su idea, y luego la comparten',
+                  isBold: false
+                },
+                {
+                  text: ', lo importante es aportar en las ideas de los demás y generar ideas en conjunto',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
@@ -232,7 +310,18 @@ const Project = (props) => {
               name: 'Modelo de negocio',
               time: '1 sesión',
               phase: '4',
-              id: 'bussiness'
+              id: 'bussiness',
+              color: theme.PROTOTYPE_COLOR,
+              description: [
+                {
+                  text: 'El modelo de negocio va a asegurar que tu propuesta pueda salir al mercado',
+                  isBold: false
+                },
+                {
+                  text: ', entrega los puntos a tener en cuenta para poder desarrollarlo.',
+                  isBold: true
+                }
+              ]
             },
             {
               icon: 
@@ -240,7 +329,18 @@ const Project = (props) => {
               name: 'Planificación SCRUM',
               time: '5 sesiones',
               phase: '5',
-              id: 'scrum'
+              id: 'scrum',
+              color: theme.TEST_COLOR,
+              description: [
+                {
+                  text: 'Para testear tu prototipo se utiliza la planificación SCRUM, como en esta metodología ágil anota lo que el usuario haga cuando pruebe tu prototipo',
+                  isBold: false
+                },
+                {
+                  text: ', y corrige lo que sea necesario.',
+                  isBold: true
+                }
+              ]
             },
             
           ]}

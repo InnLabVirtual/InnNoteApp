@@ -23,7 +23,7 @@ import styles from './styles'
 
 import { connect } from 'react-redux';
 import { setUser, watchIsConnected } from '../../redux/actions/common';
-import { uploadProjectData, watchProjects, setProjectName, watchCurrentProject, getCurrentProject } from '../../redux/actions/projects';
+import { uploadProjectData, watchProjects, setProjectName, watchCurrentProject, getCurrentProject, watchCurrentProjectUsers } from '../../redux/actions/projects';
 
 
 const mapStateToProps = (state) => {
@@ -42,7 +42,8 @@ const mapDispatchToProps = (dispatch) => {
     setProjectName: (name) => dispatch(setProjectName(name)),
     watchCurrentProject: (projectId) => dispatch(watchCurrentProject(projectId)),
     getCurrentProject: (projectId) => dispatch(getCurrentProject(projectId)),
-    watchIsConnected: (projectId, uid) => dispatch(watchIsConnected(projectId, uid))
+    watchIsConnected: (projectId, uid) => dispatch(watchIsConnected(projectId, uid)),
+    watchCurrentProjectUsers: (projectID) => dispatch(watchCurrentProjectUsers(projectID)),
   }
 }
 
@@ -53,6 +54,7 @@ const Projects = (props) => {
 
   useEffect(() => {
     props.watchProjects(props.user.uid);
+    props.watchCurrentProjectUsers(props.currentProject.id)
   }, []);
 
   function onSetName(name) {
@@ -63,6 +65,7 @@ const Projects = (props) => {
         navigation: props.navigation
       })
       setName('')
+      
     } else {
       Alert.alert('Algo ha ido mal', 'Por favor escribe un nombre de proyecto')
     }

@@ -96,6 +96,24 @@ const watchUsers = () => {
   }
 }
 
+const sendInvi = (currentProject, uid, autorName) => {
+  return function (dispatch) {
+    var newInvitationKey = database().ref('user/' + uid).child('invitations').push().key;
+    console.log('FUNCA INVI', newInvitationKey)
+
+    database()
+    .ref('user/' + uid + '/invitations/' + newInvitationKey)
+    .set(
+      { 
+        project_user: autorName,
+        project_name: currentProject.name,
+        project_id: currentProject.id, 
+        id: newInvitationKey 
+      }
+    )
+  }
+}
+
 function setSetupCompleted(isSetupCompleted) {
   return {
     type: SET_SETUP_COMPLETED,
@@ -205,5 +223,6 @@ export {
   watchInvitations,
   deleteInvitation,
   watchIsConnected,
-  setCurrentPhase
+  setCurrentPhase,
+  sendInvi
 }

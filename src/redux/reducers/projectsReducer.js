@@ -1,14 +1,19 @@
-import { SET_PROJECTS_DATA, SET_PROJECT_NAME, GET_CURRENT_PROJECT, GET_CURRENT_PROJECTID } from '../constants';
+import { SET_PROJECTS_DATA, SET_PROJECT_NAME, GET_CURRENT_PROJECT, GET_CURRENT_PROJECTID, GET_CURRENT_PROJECT_USERS } from '../constants';
 
 const initialState = {
     projectName: [],
     projects: [],
     currentProject: null,
+    projectUsers: []
 };
 
 const setProjectsReducer = (state = initialState, action) => {
     switch(action.type) {
-        
+        case GET_CURRENT_PROJECT_USERS:
+            return {
+                ...state,
+                projectUsers: action.payload
+            }
         case GET_CURRENT_PROJECT:
             return {
                 ...state,

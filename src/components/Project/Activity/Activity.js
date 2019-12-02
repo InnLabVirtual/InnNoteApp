@@ -43,7 +43,10 @@ const Activity = (props) => {
       name: props.name,
       time: props.time,
       phase: props.phase,
-      id: props.id
+      id: props.id,
+      scheme: props.scheme,
+      color: props.color,
+      description: props.description
     })
   }
 
@@ -69,7 +72,8 @@ const Activity = (props) => {
             width: 260,
             height: 220,
             justifyContent: 'flex-end',
-            marginTop: -50
+            marginTop: -50,
+            backgroundColor: props.color
           }
         ]}>
 

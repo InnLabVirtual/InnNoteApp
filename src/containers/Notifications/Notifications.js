@@ -26,6 +26,7 @@ import Notification from '../../components/Notification/Notification'
 const mapStateToProps = (state) => {
   return {
     user: state.commonData.user,
+    userData: state.commonData.userData,
     invitations: state.commonData.invitations,
   }
 }
@@ -51,7 +52,7 @@ const Notifications = (props) => {
   }
 
   const handleAccept = (projectID, projectName, invitationID) => {
-    props.addProject({projectName: projectName, projectID: projectID},{id: props.user.uid})  
+    props.addProject({projectName: projectName, projectID: projectID},{id: props.user.uid, name: props.userData.name })  
     props.deleteInvitation({userID: props.user.uid, invitationID: invitationID})
     
     alert('Has aceptado el proyecto')

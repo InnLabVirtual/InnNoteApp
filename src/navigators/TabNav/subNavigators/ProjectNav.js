@@ -26,12 +26,21 @@ import Recordings from '../../../containers/Recordings/Recordings';
 
 import theme from '../../../styles/theme.style';
 import common from '../../../styles/common.style';
+import inVR from '../../../containers/inVR/inVR';
+import Modals from '../../../components/common/Modals/Modals';
 
 export default createStackNavigator(
   {
     Project: { screen: Project },
     Activity: { screen: Activity },
-    RegisText: { screen: Recordings }
+    RegisText: { screen: Recordings },
+    InVr: { screen: inVR },
+    AddTeamModalInProject: { 
+      screen: Modals,
+      navigationOptions: {
+          header: null
+      }
+  }
   },
   {
     initialRouteName: 'Project',
@@ -81,6 +90,11 @@ export default createStackNavigator(
             source={require('./../../../assets/icons/header/back.png')}
           />
         </View>
+    },
+    transparentCard: true,
+    cardStyle: {
+        backgroundColor: 'rgba(234, 91, 121, .3)',
+        opacity: 1
     }
   }
 );

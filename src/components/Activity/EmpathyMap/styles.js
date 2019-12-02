@@ -7,7 +7,9 @@ export default StyleSheet.create({
     height: 30,
     backgroundColor: theme.PRIMARY_COLOR,
     borderRadius: 20,
-    opacity: theme.LOW_OPACITY
+    opacity: theme.LOW_OPACITY,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   mapIconActive: {
     opacity: 1
